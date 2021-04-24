@@ -1,0 +1,14 @@
+<mat-toolbar class="navbar">
+    <div>Game</div>
+    <div>
+        <button (click) = "login()" mat-button>
+            Log in
+        </button>
+        <button *ngIf="isLoggedIn$ | async" (click) = "login()" mat-button>
+            Log out
+        </button>
+        <button (click) = "registr()" mat-button>
+            Registration
+        </button>
+    </div>
+</mat-toolbar>
