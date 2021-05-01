@@ -1,27 +1,28 @@
 import { Injectable } from '@angular/core';
-import { webSocket } from 'rxjs/webSocket';
 import { LoginData } from 'src/app/models/SendingData.model';
-import { environment } from '../../../environments/environment';
+
 
 @Injectable({
   providedIn: 'root'
 })
 export class WebsocketService {
 
+  typeNumber = 0;
   webSocket: WebSocket;
-  loginData: LoginData[] = [];
 
   constructor() { }
 
   public openWebSocket(){
-    this.webSocket = new WebSocket('ws://localhost:3002');
+    this.webSocket = new WebSocket('ws://localhost:3002/');
 
     this.webSocket.onopen = (event) => {
       console.log('Open: ', event);
     };
 
     this.webSocket.onmessage = (event) => {
-      const loginData = JSON.parse(event.data);
+      const getData = JSON.parse(event.data);
+      this.typeNumber = getData.type
+      console.log(this.typeNumber)
     };
 
     this.webSocket.onclose = (event) => {
@@ -29,8 +30,8 @@ export class WebsocketService {
     };
   }
 
-  public sendMessage(loginData: LoginData) {
-    this.webSocket.send(JSON.stringify(loginData))
+  public sendMessage(data): any {
+    return this.webSocket.send(JSON.stringify(data))
   };
 
   public closeWebSocket(){
