@@ -3,7 +3,7 @@ import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { Router } from '@angular/router';
 import { TokenStorageService } from './token-storage.service';
-import { LoginData } from 'src/app/models/login.model';
+import { LoginData } from 'src/app/models/SendingData.model';
 
 //Здесь должна быть ссылка на сервер с данными входа
 const AUTH_API = '';

@@ -19,6 +19,7 @@ import { HomePageComponent } from './core/home-page/home-page.component';
 import { LoginPageComponent } from './core/login-page/login-page.component';
 import { RegistrPageComponent } from './core/registr-page/registr-page.component';
 import { HeaderComponent } from './shared/components/header/header.component';
+import { WebsocketService } from './shared/services/websocket.service';
 
 
 
@@ -47,7 +48,7 @@ import { HeaderComponent } from './shared/components/header/header.component';
     ReactiveFormsModule,
     HttpClientModule
   ],
-  providers: [],
+  providers: [ WebsocketService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

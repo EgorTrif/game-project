@@ -1,8 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormControl, FormGroup, NgForm, Validators } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { AuthService } from 'src/app/shared/services/auth.service';
+import { WebsocketService } from 'src/app/shared/services/websocket.service';
+import { catchError, map, tap } from 'rxjs/operators';
+import { TokenStorageService } from 'src/app/shared/services/token-storage.service';
 
 
 @Component({
@@ -10,21 +13,25 @@ import { AuthService } from 'src/app/shared/services/auth.service';
   templateUrl: './login-page.component.html',
   styleUrls: ['./login-page.component.css']
 })
-export class LoginPageComponent implements OnInit {
+export class LoginPageComponent implements OnInit, OnDestroy {
 
   readonly isLoggedIn$:Observable<boolean> //= this.auth.isRouteAuthenticated()
   loginForm = true;
   formGroup!: FormGroup;
 
-  username = new FormControl("", [Validators.required]);
+  login = new FormControl("", [Validators.required]);
   password = new FormControl("", [Validators.required]);
   
   errorMessage: string = ""
 
   constructor(private router: Router,
-    private auth: AuthService) { }
+    private auth: AuthService,
+    private tokenStorage: TokenStorageService,
+    public websocket: WebsocketService) {
+     }
 
   ngOnInit(): void {
+    this.websocket.openWebSocket();
     this.initForm()
     // if (this.tokenStorage.getToken()) {
     // this.auth.setIsAuthenticated(true)
@@ -32,9 +39,13 @@ export class LoginPageComponent implements OnInit {
     // }
   }
 
+  ngOnDestroy(): void {
+    this.websocket.closeWebSocket();
+  }
+
   initForm(){
     this.formGroup = new FormGroup({
-      username: new FormControl("", [Validators.required]),
+      login: new FormControl("", [Validators.required]),
       password: new FormControl("", [Validators.required])
     });
   }
@@ -45,7 +56,7 @@ export class LoginPageComponent implements OnInit {
   // }
 
   getErrorMessage() {
-    if (this.username.hasError('required')) {
+    if (this.login.hasError('required')) {
       return 'You must enter a value';
     }
     else if (this.password.hasError('required')) {
@@ -54,22 +65,23 @@ export class LoginPageComponent implements OnInit {
     return
   }
 
-  // onSubmit(){
-  //   if(this.formGroup.valid) {
-  //   this.auth.login(this.formGroup.value).subscribe(
-  //     data => {
-  //       if (data.IsError === false) {
-  //       this.auth.setIsAuthenticated(true)
-  //       this.tokenStorage.saveToken(data.Data.token);
-  //       this.allowRouteAccess(true)
-  //       this.router.navigateByUrl('/home')
-  //       } else {
-  //         this.errorMessage = data.ErrMsg
-          
-  //       } 
-  //     },
-  //   );
-  // }
-  //   console.log(this.formGroup)
-  //   }
+  onSubmit(){
+    if(this.formGroup.valid) {
+      console.log(this.formGroup.value)
+      this.websocket.sendMessage(this.formGroup.value)
+      // this.auth.login(this.formGroup.value).subscribe(
+    //   data => {
+    //     if (data.IsError === false) {
+    //     this.auth.setIsAuthenticated(true)
+    //     this.tokenStorage.saveToken(data.Data.token);
+    //     this.allowRouteAccess(true)
+    //     this.router.navigateByUrl('/home')
+    //     } else {
+    //       this.errorMessage = data.ErrMsg
+    //     } 
+    //   },
+    // );
+  }
+    console.log(this.formGroup)
+    }
 }

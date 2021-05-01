@@ -3,9 +3,9 @@
         <mat-toolbar color="primary">Login</mat-toolbar>
         <form [formGroup]="formGroup" *ngIf="loginForm" #loginForm="ngForm" class = "form-field" fxLayoutAlign = "stretch" fxLayout = "column" (ngSubmit)="onSubmit()">
         <mat-form-field>
-          <mat-label>Username</mat-label>
-          <input matInput placeholder="Username" formControlName="username" required>
-          <mat-error *ngIf="username.invalid">{{getErrorMessage()}}</mat-error>
+          <mat-label>Login</mat-label>
+          <input matInput placeholder="Login" formControlName="login" required>
+          <mat-error *ngIf="login.invalid">{{getErrorMessage()}}</mat-error>
         </mat-form-field>
       
         <mat-form-field>
