@@ -6,7 +6,7 @@ import { AuthService } from 'src/app/shared/services/auth.service';
 import { WebsocketService } from 'src/app/shared/services/websocket.service';
 import { catchError, map, tap } from 'rxjs/operators';
 import { TokenStorageService } from 'src/app/shared/services/token-storage.service';
-import { KeepAlive, LoginData } from 'src/app/models/SendingData.model';
+import { LoginData } from 'src/app/models/SendingData.model';
 
 
 @Component({
@@ -34,9 +34,6 @@ export class LoginPageComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.websocket.openWebSocket();
     this.initForm()
-    setInterval(() => {
-      this.keepAlive(); 
-    }, 5000);
     // if (this.tokenStorage.getToken()) {
     // this.auth.setIsAuthenticated(true)
     // this.loginForm = false
@@ -67,24 +64,6 @@ export class LoginPageComponent implements OnInit, OnDestroy {
       return 'You must enter a value';
     }
     return
-  }
-
-  keepAlive() {
-    if(this.websocket.typeNumber === 0){
-      console.log("Nothing happened")
-    }
-     else if(this.websocket.typeNumber === 3){
-      const sendResponse: KeepAlive = {
-        body: {},
-        type: 3
-      }
-      this.websocket.sendMessage(sendResponse)
-      console.log(sendResponse)
-      console.log("Websocket is alive")
-    }
-    if(this.websocket.typeNumber === 1){
-      console.log("logged in")
-    }
   }
 
   onSubmit(){

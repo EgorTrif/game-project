@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { LoginData } from 'src/app/models/SendingData.model';
+import { KeepAlive, LoginData } from 'src/app/models/SendingData.model';
 
 
 @Injectable({
@@ -7,7 +7,7 @@ import { LoginData } from 'src/app/models/SendingData.model';
 })
 export class WebsocketService {
 
-  typeNumber = 0;
+  typeNumber: number;
   webSocket: WebSocket;
 
   constructor() { }
@@ -22,7 +22,7 @@ export class WebsocketService {
     this.webSocket.onmessage = (event) => {
       const getData = JSON.parse(event.data);
       this.typeNumber = getData.type
-      console.log(this.typeNumber)
+      this.keepAlive(this.typeNumber)
     };
 
     this.webSocket.onclose = (event) => {
@@ -36,6 +36,20 @@ export class WebsocketService {
 
   public closeWebSocket(){
     this.webSocket.close();
+  }
+
+  keepAlive(type) {
+    if(type === 3){
+      const sendResponse: KeepAlive = {
+        body: {},
+        type: 3
+      }
+      this.sendMessage(sendResponse)
+      console.log("Websocket is alive")
+    }
+    else if(type === 1){
+      console.log("logged in")
+    }
   }
   
 }
