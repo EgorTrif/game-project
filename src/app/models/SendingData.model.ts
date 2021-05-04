@@ -10,3 +10,8 @@ export interface KeepAlive {
     type: 3;
     body: {};
 }
+
+export interface CompaniesList {
+            name: String,
+            cost: Number
+    }

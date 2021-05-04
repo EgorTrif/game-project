@@ -11,6 +11,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatCardModule } from '@angular/material/card';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+import {MatListModule} from '@angular/material/list';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -20,6 +21,8 @@ import { LoginPageComponent } from './core/login-page/login-page.component';
 import { RegistrPageComponent } from './core/registr-page/registr-page.component';
 import { HeaderComponent } from './shared/components/header/header.component';
 import { WebsocketService } from './shared/services/websocket.service';
+import { CompaniesListComponent } from './modules/companies-list/companies-list.component';
+
 
 
 
@@ -30,8 +33,9 @@ import { WebsocketService } from './shared/services/websocket.service';
     HomePageComponent,
     LoginPageComponent,
     RegistrPageComponent,
-    HeaderComponent
+    HeaderComponent,
   ],
+  entryComponents: [CompaniesListComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -46,7 +50,8 @@ import { WebsocketService } from './shared/services/websocket.service';
     FlexLayoutModule,
     FormsModule, 
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
+    MatListModule
   ],
   providers: [ WebsocketService],
   bootstrap: [AppComponent]

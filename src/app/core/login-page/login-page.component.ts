@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { FormControl, FormGroup, NgForm, Validators } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { AuthService } from 'src/app/shared/services/auth.service';
 import { WebsocketService } from 'src/app/shared/services/websocket.service';
@@ -32,7 +32,6 @@ export class LoginPageComponent implements OnInit, OnDestroy {
      }
 
   ngOnInit(): void {
-    this.websocket.openWebSocket();
     this.initForm()
     // if (this.tokenStorage.getToken()) {
     // this.auth.setIsAuthenticated(true)
@@ -41,7 +40,6 @@ export class LoginPageComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.websocket.closeWebSocket();
   }
 
   initForm(){
@@ -76,7 +74,6 @@ export class LoginPageComponent implements OnInit, OnDestroy {
         type: 1,
       }
       this.websocket.sendMessage(sendData)
-      console.log(sendData)
       // this.auth.login(this.formGroup.value).subscribe(
     //   data => {
     //     if (data.IsError === false) {

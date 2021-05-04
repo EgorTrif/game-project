@@ -3,6 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { HomePageComponent } from './core/home-page/home-page.component';
 import { LoginPageComponent } from './core/login-page/login-page.component';
 import { RegistrPageComponent } from './core/registr-page/registr-page.component';
+import { CompaniesListComponent } from './modules/companies-list/companies-list.component';
 import { MainLayoutComponent } from './shared/components/main-layout/main-layout.component';
 
 const routes: Routes = [
@@ -11,9 +12,10 @@ const routes: Routes = [
       {path: '', redirectTo: '/', pathMatch: 'full'},
       {path: '', component: HomePageComponent},
       {path: 'login', component: LoginPageComponent},
-      {path: 'registr', component: RegistrPageComponent}
+      {path: 'registr', component: RegistrPageComponent},
+      {path: 'companies-list', loadChildren: () => import('./modules/companies-list/companies-list.module').then(m => m.CompaniesListModule) }
     ]
-  }
+  },
 ];
 
 @NgModule({
