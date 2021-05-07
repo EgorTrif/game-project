@@ -7,6 +7,7 @@ import { WebsocketService } from 'src/app/shared/services/websocket.service';
 import { catchError, map, tap } from 'rxjs/operators';
 import { TokenStorageService } from 'src/app/shared/services/token-storage.service';
 import { LoginData } from 'src/app/models/SendingData.model';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 
 @Component({
@@ -28,7 +29,8 @@ export class LoginPageComponent implements OnInit, OnDestroy {
   constructor(private router: Router,
     private auth: AuthService,
     private tokenStorage: TokenStorageService,
-    public websocket: WebsocketService) {
+    public websocket: WebsocketService,
+    private _snackBar: MatSnackBar) {
      }
 
   ngOnInit(): void {
@@ -74,6 +76,12 @@ export class LoginPageComponent implements OnInit, OnDestroy {
         type: 1,
       }
       this.websocket.sendMessage(sendData)
+      this.router.navigateByUrl('/companies-list')
+      this._snackBar.open('You have successfully loged in!', 'x', {
+        duration: 3000,
+        horizontalPosition: "center",
+        verticalPosition: "top",
+      })
       // this.auth.login(this.formGroup.value).subscribe(
     //   data => {
     //     if (data.IsError === false) {
