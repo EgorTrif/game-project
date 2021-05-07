@@ -1,7 +1,14 @@
 <h2>List of companies:</h2>
+<div class = "list">
 <mat-list>
-    <mat-list-item *ngFor="let company of companies">
-      <h3>{{company.name}}</h3>
-      <p>{{company.cost}}</p>
+    <mat-list-item *ngFor="let company of companies$">
+      <h3 matLine> {{company.name}} </h3>
+    <p matLine>
+      <span> {{company.cost}} </span>
     </mat-list-item>
   </mat-list>
+</div>
+
+<ng-template #loading>
+  <p class="text-center">Loading posts...</p>
+</ng-template>

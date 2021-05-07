@@ -1,4 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Observable } from 'rxjs';
 import { CompaniesList } from 'src/app/models/SendingData.model';
 import { WebsocketService } from 'src/app/shared/services/websocket.service';
 
@@ -12,12 +13,13 @@ export class CompaniesListComponent implements OnInit, OnDestroy {
   constructor(public websocket: WebsocketService) { }
 
   refreshCompanies: any
-  companies: CompaniesList[] = []
+  companies$: CompaniesList[]
   
   ngOnInit(): void {
+    this.getAllCompanies()
     this.refreshCompanies  = setInterval(() => {
       this.getAllCompanies(); 
-    }, 5000);
+    }, 3000);
   }
 
   ngOnDestroy(): void {
@@ -31,7 +33,9 @@ export class CompaniesListComponent implements OnInit, OnDestroy {
       body: {},
       type: 4
     }
-    this.websocket.sendMessage(reqSocket)
+    this.websocket.sendMessage(reqSocket);
+    this.companies$ = this.websocket.list
+    console.log("list:", this.companies$)
   }
 }
 

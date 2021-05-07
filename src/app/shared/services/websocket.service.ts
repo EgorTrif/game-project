@@ -10,6 +10,7 @@ export class WebsocketService {
   list: CompaniesList[] = []
   typeNumber: number;
   webSocket: WebSocket;
+  gettingData: any;
 
   constructor() { }
 
@@ -21,11 +22,9 @@ export class WebsocketService {
     };
 
     this.webSocket.onmessage = (event) => {
-      const gettingData = JSON.parse(event.data);
-      this.typeNumber = gettingData.type
-      this.list.push(gettingData.body.list)
-      this.list.splice(1, 1)
-      console.log(this.list)
+      this.gettingData = JSON.parse(event.data);
+      this.typeNumber = this.gettingData.type
+      console.log("Data: ", this.gettingData)
       this.keepAlive(this.typeNumber)
       console.log(this.typeNumber)
     };
@@ -53,7 +52,9 @@ export class WebsocketService {
         type: 3
       }
       this.sendMessage(sendResponse)
-      console.log("Websocket is alive")
+    }
+    else if(type === 4){
+      this.list = this.gettingData.body.list
     }
   }
 }

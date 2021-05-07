@@ -12,6 +12,7 @@ export interface KeepAlive {
 }
 
 export interface CompaniesList {
-            name: String,
-            cost: Number
+        uuid: String,
+        name: String,
+        cost: Number
     }
