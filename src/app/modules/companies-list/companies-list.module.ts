@@ -5,15 +5,15 @@ import { MatDialogModule, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material
 import { MatIcon, MatIconModule } from '@angular/material/icon';
 import { MatMenu, MatMenuModule } from '@angular/material/menu';
 
-
 import { CompaniesListRoutingModule } from './companies-list-routing.module';
 import { CompaniesListComponent } from './companies-list.component';
 import { BuyStockComponent } from './buy-stock/buy-stock.component';
+import { UserInfoComponent } from '../user-info/user-info.component';
 
 
 
 @NgModule({
-  declarations: [CompaniesListComponent, BuyStockComponent],
+  declarations: [CompaniesListComponent, BuyStockComponent, UserInfoComponent],
   imports: [
     CommonModule,
     CompaniesListRoutingModule,

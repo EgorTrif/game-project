@@ -27,11 +27,13 @@ export class CompaniesListComponent implements OnInit, OnDestroy {
   private unsubscribe$ = new Subject();
   refreshCompanies: any
   companies$: CompaniesList[]
+  loading = true
   
   ngOnInit(): void {
     this.getAllCompanies()
     this.refreshCompanies  = setInterval(() => {
-      this.getAllCompanies(); 
+      this.getAllCompanies();
+      this.loading = false
     }, 3000);
   }
 

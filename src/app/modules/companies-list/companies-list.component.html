@@ -1,5 +1,6 @@
-<h2>List of companies:</h2>
+<div class="d-flex bd-highlight">
 <div class = "list">
+<h2>List of companies:</h2>
 <mat-list>
     <mat-list-item *ngFor="let company of companies$">
     <h3 matLine> {{company.name}} </h3>
@@ -18,8 +19,13 @@
     </mat-menu>
     </mat-list-item>
   </mat-list>
+
+  <div *ngIf="loading">
+    <p class="text-left">Loading posts...</p>
+  </div>
 </div>
 
-<ng-template #loading>
-  <p class="text-center">Loading posts...</p>
-</ng-template>
+<div class="p-2 flex-fill bd-highlight">
+  <app-user-info></app-user-info>
+</div>
+</div>

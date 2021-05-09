@@ -25,3 +25,20 @@ export interface BuyStock {
         cost: Number
     }
 }
+
+export interface ClientData {
+    login : String,
+	player_data :
+		{
+			money : Number,
+			stocks :
+			{
+				amount : Number,
+				list :
+				[
+					uuid : String,
+					amount : Number
+				]
+			}
+		}
+}
