@@ -1,17 +1,35 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import {MatListModule} from '@angular/material/list';
+import { MatList, MatListModule } from '@angular/material/list';
+import { MatDialogModule, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
+import { MatIcon, MatIconModule } from '@angular/material/icon';
+import { MatMenu, MatMenuModule } from '@angular/material/menu';
+
 
 import { CompaniesListRoutingModule } from './companies-list-routing.module';
 import { CompaniesListComponent } from './companies-list.component';
+import { BuyStockComponent } from './buy-stock/buy-stock.component';
+
 
 
 @NgModule({
-  declarations: [CompaniesListComponent],
+  declarations: [CompaniesListComponent, BuyStockComponent],
   imports: [
     CommonModule,
     CompaniesListRoutingModule,
-    MatListModule
-  ]
+    MatListModule,
+    MatMenuModule,
+    MatIconModule,
+    MatDialogModule
+  ],
+  providers: [ BuyStockComponent,
+    { provide: MatDialogRef,
+    useValue: {}
+  },
+  {
+    provide: MAT_DIALOG_DATA,
+    useValue: {}
+  }, 
+MatList, MatMenu, MatIcon]
 })
 export class CompaniesListModule { }

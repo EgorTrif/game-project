@@ -1,0 +1,48 @@
+<mat-dialog-content>
+    <div>
+        <div *ngIf="!buyStock" class="buy-stock">
+          <h3>Do you want to buy {{data.company.name}}'s shares?</h3>
+          <p>Current price for one share: {{data.company.cost}}</p>
+          <div>Number of shares: <input type="number"> </div>
+          <mat-dialog-actions>
+        <button
+            mat-dialog-close
+            mat-button
+            class="m-3 btn btn-sm btn-danger"
+            >
+              Close
+            </button>
+        <button
+          mat-button
+            type="submit"
+            class="m-3 btn btn-sm btn-success"
+            
+          >
+            Buy
+          </button>
+          </mat-dialog-actions>
+        </div>
+          <div *ngIf="buyStock" class="sell-stock">
+            <h3>Do you want to sell {{data.company.name}}'s shares?</h3>
+            <p>Current price for one share: {{data.company.cost}}</p>
+            <div>Number of shares: <input type="number"> </div>
+            <mat-dialog-actions>
+          <button
+              mat-dialog-close
+              mat-button
+              class="m-3 btn btn-sm btn-danger"
+              >
+                Close
+              </button>
+          <button
+            mat-button
+              type="submit"
+              class="m-3 btn btn-sm btn-success"
+            >
+              Sell
+            </button>
+            </mat-dialog-actions>
+          <p>{{ message }}</p>
+        </div>
+        </div>
+      </mat-dialog-content>

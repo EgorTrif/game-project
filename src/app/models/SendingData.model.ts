@@ -16,3 +16,12 @@ export interface CompaniesList {
         name: String,
         cost: Number
     }
+
+export interface BuyStock {
+    type: 5;
+    body: {
+        uuid: String,
+        amount: Number,
+        cost: Number
+    }
+}
