@@ -2,8 +2,11 @@
 <div class = "list">
 <h2>List of companies:</h2>
 <mat-list>
+  <div *ngIf="loading">
+    <p class="text-center">Loading posts...</p>
+  </div>
     <mat-list-item *ngFor="let company of companies$">
-    <h3 matLine> {{company.name}} </h3>
+    <h4 matLine> {{company.name}} </h4>
     <p matLine>
       <span> {{company.cost}} </span>
       <button style="float: right; border:0ch; background-color: transparent;" mat-icon-button [matMenuTriggerFor]="menu">
@@ -19,10 +22,6 @@
     </mat-menu>
     </mat-list-item>
   </mat-list>
-
-  <div *ngIf="loading">
-    <p class="text-left">Loading posts...</p>
-  </div>
 </div>
 
 <div class="p-2 flex-fill bd-highlight">

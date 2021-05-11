@@ -1,32 +1,32 @@
 <div class="mainDiv" fxLayoutAlign = "center center">
     <mat-card fxFlex = "25" style="margin-top: 120px">
-        <mat-toolbar color="primary">Registration</mat-toolbar>
+        <mat-toolbar color="accent">Registration</mat-toolbar>
         <form [formGroup]="formGroup" *ngIf="registrForm" #registrForm="ngForm" class = "form-field" fxLayoutAlign = "stretch" fxLayout = "column" (ngSubmit)="onSubmit()">
-        <mat-form-field>
+        <mat-form-field color="accent">
           <mat-label>Username</mat-label>
           <input matInput placeholder="Username" formControlName="username" required>
           <mat-error *ngIf="username.invalid">{{getErrorMessage()}}</mat-error>
         </mat-form-field>
 
-        <mat-form-field>
+        <mat-form-field color="accent">
         <mat-label>Email</mat-label>
           <input matInput placeholder="Email" formControlName="email" required>
           <mat-error *ngIf="email.invalid">{{getErrorMessage()}}</mat-error>
         </mat-form-field>
       
-        <mat-form-field>
+        <mat-form-field color="accent">
             <mat-label>Password</mat-label>
             <input type = "password" matInput placeholder="Password" formControlName="password" required>
             <mat-error *ngIf="password.invalid">{{getErrorMessage()}}</mat-error>
           </mat-form-field>
 
-          <mat-form-field>
+          <mat-form-field color="accent">
             <mat-label>Repeat password</mat-label>
             <input type = "password" matInput placeholder="Password" formControlName="repeatPassword" required>
             <mat-error *ngIf="repeatPassword.invalid">{{getErrorMessage()}}</mat-error>
           </mat-form-field>
         
-          <button [disabled] = "registrForm.invalid" mat-flat-button color="primary" type="submit" class="logButton">Confirm</button>
+          <button [disabled] = "registrForm.invalid" mat-flat-button color="accent" type="submit" class="logButton">Confirm</button>
       </form>
       <br>
       <p *ngIf="isLoggedIn$ | async">You are already registered</p>

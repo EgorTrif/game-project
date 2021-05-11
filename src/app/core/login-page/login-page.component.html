@@ -1,20 +1,20 @@
 <div class="mainDiv" fxLayoutAlign = "center center">
     <mat-card fxFlex = "25" style="margin-top: 150px">
-        <mat-toolbar color="primary">Login</mat-toolbar>
+        <mat-toolbar color="accent">Login</mat-toolbar>
         <form [formGroup]="formGroup" *ngIf="loginForm" #loginForm="ngForm" class = "form-field" fxLayoutAlign = "stretch" fxLayout = "column" (ngSubmit)="onSubmit()">
-        <mat-form-field>
+        <mat-form-field color="accent">
           <mat-label>Login</mat-label>
           <input matInput placeholder="Login" formControlName="login" required>
           <mat-error *ngIf="login.invalid">{{getErrorMessage()}}</mat-error>
         </mat-form-field>
       
-        <mat-form-field>
+        <mat-form-field color="accent">
             <mat-label>Password</mat-label>
             <input type = "password" matInput placeholder="password" formControlName="password" required>
             <mat-error *ngIf="password.invalid">{{getErrorMessage()}}</mat-error>
           </mat-form-field>
         
-          <button [disabled] = "loginForm.invalid" mat-flat-button color="primary" type="submit" class="logButton">Login</button>
+          <button [disabled] = "loginForm.invalid" mat-flat-button color="accent" type="submit" class="logButton">Login</button>
       </form>
       <br>
       <p *ngIf="isLoggedIn$ | async">You're already loged in</p>

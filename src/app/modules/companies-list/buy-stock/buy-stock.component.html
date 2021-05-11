@@ -1,9 +1,13 @@
 <mat-dialog-content>
     <div>
-        <div *ngIf="!buyStock" class="buy-stock">
-          <h3>Do you want to buy {{data.company.name}}'s shares?</h3>
-          <p>Current price for one share: {{data.company.cost}}</p>
-          <div>Number of shares: <input type="number"> </div>
+        <div *ngIf="buyStock" class="buy-stock">
+          <form [formGroup] = "amountStoks" (ngSubmit) = "BuyStock()" class="example-form">
+          <h3>Do you want to buy {{data.company.name}}'s stocks?</h3>
+          <p>Current price for one stock: {{data.company.cost}}</p>
+            <mat-form-field color="accent" class="example-full-width">
+              <mat-label>Amount of stocks:</mat-label>
+              <input formControlName = "Amount" type="number" matInput placeholder="1">
+            </mat-form-field>
           <mat-dialog-actions>
         <button
             mat-dialog-close
@@ -21,11 +25,15 @@
             Buy
           </button>
           </mat-dialog-actions>
+        </form>
         </div>
-          <div *ngIf="buyStock" class="sell-stock">
-            <h3>Do you want to sell {{data.company.name}}'s shares?</h3>
-            <p>Current price for one share: {{data.company.cost}}</p>
-            <div>Number of shares: <input type="number"> </div>
+          <div *ngIf="!buyStock" class="sell-stock">
+            <h3>Do you want to sell {{data.company.name}}'s stocks?</h3>
+            <p>Current price for one stock: {{data.company.cost}}</p>
+            <mat-form-field color="accent" class="example-full-width">
+              <mat-label>Amount of stocks:</mat-label>
+              <input type="number" matInput value="1">
+            </mat-form-field>
             <mat-dialog-actions>
           <button
               mat-dialog-close
