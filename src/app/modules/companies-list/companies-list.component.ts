@@ -22,7 +22,9 @@ export class CompaniesListComponent implements OnInit, OnDestroy {
   public list: MatList,
   public menu: MatMenu,
   public icon: MatIcon,
-  public dialog: MatDialog) { }
+  public dialog: MatDialog) {
+    this.websocket.isUuid()
+   }
 
   private unsubscribe$ = new Subject();
   refreshCompanies: any
@@ -63,11 +65,11 @@ export class CompaniesListComponent implements OnInit, OnDestroy {
   getAllCompanies(){
     const reqSocket = {
       body: {},
-      type: 4
+      type: 4,
+      uuid: this.websocket._uuid$._value
     }
     this.websocket.sendMessage(reqSocket);
-    this.companies$ = this.websocket.list
-    console.log("list:", this.companies$)
+    this.companies$ = this.websocket._list$._value
   }
 }
 

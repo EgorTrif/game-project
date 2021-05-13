@@ -1,5 +1,12 @@
 <div class="user-info"> 
-<h2>User: </h2>
-<p>Money: </p>
-<p>Companies: </p>
-</div>
+<h2>User: {{ userinfo.login }} </h2>
+<p>Money: {{userinfo.player_data.money}}</p>
+<p>Amount of stocks: {{userinfo.player_data.stocks.amount}}</p>
+<!-- <mat-list>
+    <mat-list-item *ngFor="let company of user.player_data.stocks.list">
+        <h4 matLine> {{company.uuid}} </h4>
+        <p matLine>
+          <span> {{company.amount}} </span>
+        </mat-list-item>
+      </mat-list> -->
+</div>  

@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
-import { CompaniesList, KeepAlive, LoginData } from 'src/app/models/SendingData.model';
+import { BehaviorSubject } from 'rxjs';
+import { CompaniesList, KeepAlive, ClientData } from 'src/app/models/SendingData.model';
 
 
 @Injectable({
@@ -7,12 +8,30 @@ import { CompaniesList, KeepAlive, LoginData } from 'src/app/models/SendingData.
 })
 export class WebsocketService {
 
-  list: CompaniesList[] = []
+  public _list$= new BehaviorSubject<CompaniesList[]>([])
+  userInfo: ClientData
   typeNumber: number;
   webSocket: WebSocket;
   gettingData: any;
+  public _uuid$ = new BehaviorSubject<String>("")
 
   constructor() { }
+
+  public isList() {
+    return this._list$;
+  }
+
+  public isUuid() {
+    return this._uuid$;
+  }
+  
+  public listChanger(isType: CompaniesList[]): void {
+    this._list$.next(isType)
+  }
+
+  public typeChanger(isType: String): void {
+    this._uuid$.next(isType)
+  }
 
   public openWebSocket(){
     this.webSocket = new WebSocket('ws://localhost:3002/');
@@ -44,6 +63,7 @@ export class WebsocketService {
 
   keepAlive(type) {
     if(type === 1){
+      this.typeChanger(this.gettingData.body.uuid) 
       console.log("logged in")
     }
     else if(type === 3){
@@ -54,7 +74,13 @@ export class WebsocketService {
       this.sendMessage(sendResponse)
     }
     else if(type === 4){
-      this.list = this.gettingData.body.list
+      this.listChanger(this.gettingData.body.list)
+    }
+    else if(type === 5){
+      console.log("after buy", this.gettingData)
+    }
+    else if(type === 6){
+      this.userInfo = this.gettingData.body
     }
   }
 }
