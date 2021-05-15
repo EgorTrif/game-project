@@ -23,7 +23,8 @@ export class CompaniesListComponent implements OnInit, OnDestroy {
   public menu: MatMenu,
   public icon: MatIcon,
   public dialog: MatDialog) {
-    this.websocket.isUuid()
+    this.websocket.isUuid(),
+    this.buystock.isRouteBuyStock()
    }
 
   private unsubscribe$ = new Subject();
@@ -47,7 +48,6 @@ export class CompaniesListComponent implements OnInit, OnDestroy {
     this.unsubscribe$.complete()
   }
   BuyStock(company: CompaniesList) {
-    this.buystock.buyStock = true
     const dialogRef = this.dialog.open(BuyStockComponent, { width: '500px', data: { company } });
     dialogRef.afterClosed().pipe(takeUntil(this.unsubscribe$)).subscribe(result => {
       console.log(`Dialog result: ${result}`);
@@ -55,7 +55,7 @@ export class CompaniesListComponent implements OnInit, OnDestroy {
   }
   
   SellStock(company: CompaniesList) {
-    this.buystock.buyStock = false
+    this.buystock.setIsBuyStock(false)
     const dialogRef = this.dialog.open(BuyStockComponent, { width: '500px', data: { company } });
     dialogRef.afterClosed().pipe(takeUntil(this.unsubscribe$)).subscribe(result => {
       console.log(`Dialog result: ${result}`);
@@ -69,7 +69,7 @@ export class CompaniesListComponent implements OnInit, OnDestroy {
       uuid: this.websocket._uuid$._value
     }
     this.websocket.sendMessage(reqSocket);
-    this.companies$ = this.websocket._list$._value
+    this.companies$ = this.websocket.list
   }
 }
 

@@ -3,12 +3,12 @@
 <h2>List of companies:</h2>
 <mat-list>
   <div *ngIf="loading">
-    <p class="text-center">Loading posts...</p>
+    <p class="text-center">Loading companies...</p>
   </div>
     <mat-list-item *ngFor="let company of companies$">
     <h4 matLine> {{company.name}} </h4>
     <p matLine>
-      <span> {{company.cost}} </span>
+      <span> {{ company.cost | number:'1.2-2'}} </span>
       <button style="float: right; border:0ch; background-color: transparent;" mat-icon-button [matMenuTriggerFor]="menu">
         <mat-icon>more_vert</mat-icon>
       </button>

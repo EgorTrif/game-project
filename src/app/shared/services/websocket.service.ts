@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { CompaniesList, KeepAlive, ClientData } from 'src/app/models/SendingData.model';
 
 
@@ -8,8 +8,8 @@ import { CompaniesList, KeepAlive, ClientData } from 'src/app/models/SendingData
 })
 export class WebsocketService {
 
-  public _list$= new BehaviorSubject<CompaniesList[]>([])
-  userInfo: ClientData
+  public list: CompaniesList[] = []
+  public userInfo: ClientData
   typeNumber: number;
   webSocket: WebSocket;
   gettingData: any;
@@ -17,27 +17,23 @@ export class WebsocketService {
 
   constructor() { }
 
-  public isList() {
-    return this._list$;
-  }
-
   public isUuid() {
     return this._uuid$;
-  }
-  
-  public listChanger(isType: CompaniesList[]): void {
-    this._list$.next(isType)
   }
 
   public typeChanger(isType: String): void {
     this._uuid$.next(isType)
   }
 
-  public openWebSocket(){
+  public openWebSocket() {
     this.webSocket = new WebSocket('ws://localhost:3002/');
 
     this.webSocket.onopen = (event) => {
       console.log('Open: ', event);
+    };
+
+    this.webSocket.onclose = (event) => {
+      console.log('Close: ', event);
     };
 
     this.webSocket.onmessage = (event) => {
@@ -48,9 +44,7 @@ export class WebsocketService {
       console.log(this.typeNumber)
     };
 
-    this.webSocket.onclose = (event) => {
-      console.log('Close: ', event);
-    };
+    return this.gettingData
   }
 
   public sendMessage(data): any {
@@ -74,7 +68,7 @@ export class WebsocketService {
       this.sendMessage(sendResponse)
     }
     else if(type === 4){
-      this.listChanger(this.gettingData.body.list)
+      this.list = this.gettingData.body.list
     }
     else if(type === 5){
       console.log("after buy", this.gettingData)

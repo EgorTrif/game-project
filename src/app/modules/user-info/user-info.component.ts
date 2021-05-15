@@ -27,8 +27,7 @@ export class UserInfoComponent implements OnInit {
       type: 6,
       uuid: this.websocket._uuid$._value
     }
-    this.userinfo = this.websocket.userInfo
-    console.log("userinfo",this.userinfo)
     this.websocket.sendMessage(sendResponse)
+    this.userinfo = this.websocket.userInfo
   }
 }
