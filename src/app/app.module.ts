@@ -25,6 +25,7 @@ import { RegistrPageComponent } from './core/registr-page/registr-page.component
 import { HeaderComponent } from './shared/components/header/header.component';
 import { WebsocketService } from './shared/services/websocket.service';
 import { CompaniesListComponent } from './modules/companies-list/companies-list.component';
+import { CompaniesListModule } from './modules/companies-list/companies-list.module';
 
 
 @NgModule({
@@ -34,7 +35,7 @@ import { CompaniesListComponent } from './modules/companies-list/companies-list.
     HomePageComponent,
     LoginPageComponent,
     RegistrPageComponent,
-    HeaderComponent,
+    HeaderComponent
   ],
   entryComponents: [CompaniesListComponent],
   imports: [
@@ -54,9 +55,10 @@ import { CompaniesListComponent } from './modules/companies-list/companies-list.
     HttpClientModule,
     MatListModule,
     MatSnackBarModule,
-    MatDialogModule
+    MatDialogModule,
+    CompaniesListModule
   ],
   providers: [ WebsocketService],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
 export class AppModule { }

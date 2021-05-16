@@ -1,1 +1,18 @@
-<h1>HOME PAGE</h1>
+<div class="d-flex bd-highlight">
+<div class="p-2 w-100 bd-highlight">
+<button mat-raised-button color="primary">Open stock market</button>
+<button mat-raised-button color="accent">Stock exchange</button>
+<button mat-raised-button color="warn">Investors</button> 
+    <div class="border-one">
+    <app-companies-list></app-companies-list>
+    </div>
+</div>
+<div class="p-2 flex-shrink-0 bd-highlight">
+<button mat-raised-button color="accent">Profile</button>
+<button mat-raised-button color="warn">News</button>
+    <div class="border-two">
+    <app-user-info></app-user-info>
+    </div>
+</div>
+</div>
+<router-outlet></router-outlet>

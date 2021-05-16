@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
-import { AuthService } from '../../services/auth.service';
 import { TokenStorageService } from '../../services/token-storage.service';
 
 @Component({
@@ -11,16 +10,11 @@ import { TokenStorageService } from '../../services/token-storage.service';
 })
 export class HeaderComponent implements OnInit {
 
-  readonly isLoggedIn$:Observable<boolean> = this.authService.isRouteAuthenticated()
+  readonly isLoggedIn$:Observable<boolean>
 
-  constructor(private router: Router,
-    private tokenStorageService: TokenStorageService,
-    private authService: AuthService) { }
+  constructor(private router: Router) { }
 
   ngOnInit(): void {
-    if (this.tokenStorageService.getToken()) {
-      this.authService.setIsAuthenticated(true)
-    }
   }
 
   login(){
@@ -28,13 +22,10 @@ export class HeaderComponent implements OnInit {
   }
 
   logout(): void {
-    this.authService.logout()
-    this.blockAccess()
   }
 
   blockAccess(): void {
-    this.authService.setIsAuthenticated(false);
-    this.authService.isRouteAuthenticated();
+    
   }
 
   registr(){

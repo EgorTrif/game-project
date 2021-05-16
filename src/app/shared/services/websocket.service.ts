@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject } from 'rxjs';
 import { CompaniesList, KeepAlive, ClientData } from 'src/app/models/SendingData.model';
 
 
@@ -13,7 +13,7 @@ export class WebsocketService {
   typeNumber: number;
   webSocket: WebSocket;
   gettingData: any;
-  public _uuid$ = new BehaviorSubject<String>("")
+  public _uuid$ = new BehaviorSubject<string>("")
 
   constructor() { }
 
@@ -21,7 +21,7 @@ export class WebsocketService {
     return this._uuid$;
   }
 
-  public typeChanger(isType: String): void {
+  public typeChanger(isType: string): void {
     this._uuid$.next(isType)
   }
 
@@ -47,7 +47,7 @@ export class WebsocketService {
     return this.gettingData
   }
 
-  public sendMessage(data): any {
+  public sendMessage(data) {
     return this.webSocket.send(JSON.stringify(data))
   };
 
@@ -76,5 +76,9 @@ export class WebsocketService {
     else if(type === 6){
       this.userInfo = this.gettingData.body
     }
+  }
+
+  getUuid(): string | undefined {
+    return window.sessionStorage.getItem(this.gettingData.body.uuid);
   }
 }

@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Observable } from 'rxjs';
-import { AuthService } from 'src/app/shared/services/auth.service';
 
 @Component({
   selector: 'app-registr-page',
@@ -22,8 +21,7 @@ export class RegistrPageComponent implements OnInit {
   
   errorMessage: string = ""
 
-  constructor(private router: Router,
-    private auth: AuthService) { }
+  constructor(private router: Router) { }
 
   ngOnInit(): void {
     this.initForm()

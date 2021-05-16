@@ -1,15 +1,10 @@
 <mat-toolbar class="navbar">
     <div routerLink = "/">Game</div>
     <div>
-        <button routerLink = "/companies-list" mat-button>
-            Companies
-        </button>
-    </div>
-    <div>
         <button (click) = "login()" mat-button>
             Log in
         </button>
-        <button *ngIf="isLoggedIn$ | async" (click) = "login()" mat-button>
+        <button  (click) = "logout()" mat-button>
             Log out
         </button>
         <button (click) = "registr()" mat-button>

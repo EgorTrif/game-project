@@ -1,6 +1,18 @@
-h1 {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 100%;
+.border-one{
+    margin: 10px;
+    border-width: 2px;
+    border-color: black;
+    border-style: solid;
+    width: min-content;
+}
+
+.border-two{
+    margin: 10px;
+    border-width: 2px;
+    border-color: black;
+    border-style: solid;
+    width: min-content;
+}
+button {
+    margin: 10px;
 }

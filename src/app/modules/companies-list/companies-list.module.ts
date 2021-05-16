@@ -30,6 +30,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     FormsModule,
     ReactiveFormsModule,
   ],
+  exports: [CompaniesListComponent, UserInfoComponent],
   providers: [ BuyStockComponent,
     { provide: MatDialogRef,
     useValue: {}

@@ -8,6 +8,7 @@
               <mat-label>Amount of stocks:</mat-label>
               <input formControlName = "AmountForBuy" type="number" matInput>
             </mat-form-field>
+            <p>Purchase amount: {{(this.amountStoks.value.AmountForBuy)*(data.company.cost) | number:'1.2-2'}}</p>
           <mat-dialog-actions>
         <button
             mat-dialog-close
@@ -36,6 +37,7 @@
               <mat-label>Amount of stocks:</mat-label>
               <input formControlName = "AmountForSell" type="number" matInput>
             </mat-form-field>
+            <p>Purchase amount: {{(this.amountStoks.value.AmountForSell)*(data.company.cost) | number:'1.2-2'}}</p>
             <mat-dialog-actions>
           <button
               mat-dialog-close

@@ -2,9 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Observable } from 'rxjs';
-import { AuthService } from 'src/app/shared/services/auth.service';
 import { WebsocketService } from 'src/app/shared/services/websocket.service';
-import { catchError, map, tap } from 'rxjs/operators';
 import { TokenStorageService } from 'src/app/shared/services/token-storage.service';
 import { LoginData } from 'src/app/models/SendingData.model';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -27,7 +25,6 @@ export class LoginPageComponent implements OnInit, OnDestroy {
   errorMessage: string = ""
 
   constructor(private router: Router,
-    private auth: AuthService,
     private tokenStorage: TokenStorageService,
     public websocket: WebsocketService,
     private _snackBar: MatSnackBar) {
@@ -76,7 +73,7 @@ export class LoginPageComponent implements OnInit, OnDestroy {
         type: 1,
       }
       this.websocket.sendMessage(sendData)
-      this.router.navigateByUrl('/companies-list')
+      this.router.navigateByUrl('/home')
       this._snackBar.open('You have successfully loged in!', 'x', {
         duration: 3000,
         horizontalPosition: "center",
