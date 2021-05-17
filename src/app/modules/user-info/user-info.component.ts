@@ -29,5 +29,6 @@ export class UserInfoComponent implements OnInit {
     }
     this.websocket.sendMessage(sendResponse)
     this.userinfo = this.websocket.userInfo
+    
   }
 }

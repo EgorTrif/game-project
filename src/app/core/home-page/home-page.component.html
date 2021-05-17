@@ -8,10 +8,13 @@
     </div>
 </div>
 <div class="p-2 flex-shrink-0 bd-highlight">
-<button mat-raised-button color="accent">Profile</button>
-<button mat-raised-button color="warn">News</button>
+<button mat-raised-button color="accent"
+[disabled]="userinfo" (click) = "switchTabs()">Profile</button>
+<button mat-raised-button color="warn"
+[disabled]="!userinfo" (click) = "switchTabs()">News</button>
     <div class="border-two">
-    <app-user-info></app-user-info>
+    <app-user-info *ngIf="userinfo"></app-user-info>
+    <app-news *ngIf="!userinfo"></app-news>
     </div>
 </div>
 </div>

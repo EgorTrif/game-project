@@ -9,7 +9,18 @@ export class HomePageComponent implements OnInit {
 
   constructor() { }
 
+  userinfo = true
+
   ngOnInit(): void {
+  }
+
+  switchTabs() {
+    if(this.userinfo){
+      this.userinfo = false
+    }
+    else {
+      this.userinfo = true
+    }
   }
 
 }

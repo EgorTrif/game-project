@@ -40,7 +40,7 @@ export interface ClientData {
 					amount : Number,
                     cost : Number,
 					value : Number
-				]
+                ]
 			}
 		}
 }

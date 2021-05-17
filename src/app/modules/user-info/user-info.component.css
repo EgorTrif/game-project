@@ -2,3 +2,15 @@
     padding: .5rem!important;
     width: 450px;
 }
+h4 {
+    color: black
+}
+p {
+    margin: 0px;
+    color: black
+}
+mat-list {
+    height: max-content;
+    overflow: auto;
+    box-sizing: border-box
+  }

@@ -15,7 +15,9 @@ export class BuyStockComponent implements OnInit {
   constructor(public dialogRef: MatDialogRef<BuyStockComponent>,
   @Inject(MAT_DIALOG_DATA) public data:{ company: CompaniesList},
   public dialog: MatDialog,
-  private websocket: WebsocketService) { }
+  private websocket: WebsocketService) {
+    this.websocket.isUuid()
+   }
 
   amountStoks = new FormGroup({
     AmountForBuy: new FormControl(''),
@@ -37,26 +39,27 @@ export class BuyStockComponent implements OnInit {
   }
 
   BuyStock() {
-    const sendResponse: BuyStock = {
+    const sendResponse = {
       type: 5,
       body: {
         uuid: this.data.company.uuid,
         amount: this.amountStoks.value.AmountForBuy,
         cost: this.data.company.cost
-      }
+      },
+      uuid: this.websocket._uuid$._value
     }
     this.websocket.sendMessage(sendResponse)
   }
 
-  SellStock() {
-    const sendResponse: BuyStock = {
-      type: 5,
-      body: {
-        uuid: this.data.company.uuid,
-        amount: this.amountStoks.value.AmountForSell,
-        cost: this.data.company.cost
-      }
-    }
-    this.websocket.sendMessage(sendResponse)
-  }
+  // SellStock() {
+  //   const sendResponse: BuyStock = {
+  //     type: 5,
+  //     body: {
+  //       uuid: this.data.company.uuid,
+  //       amount: this.amountStoks.value.AmountForSell,
+  //       cost: this.data.company.cost
+  //     }
+  //   }
+  //   this.websocket.sendMessage(sendResponse)
+  // }
 }

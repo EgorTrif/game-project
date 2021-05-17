@@ -39,7 +39,6 @@ export class WebsocketService {
     this.webSocket.onmessage = (event) => {
       this.gettingData = JSON.parse(event.data);
       this.typeNumber = this.gettingData.type
-      console.log("Data: ", this.gettingData)
       this.keepAlive(this.typeNumber)
       console.log(this.typeNumber)
     };
@@ -69,16 +68,14 @@ export class WebsocketService {
     }
     else if(type === 4){
       this.list = this.gettingData.body.list
+      console.log("Data: ", this.gettingData)
     }
     else if(type === 5){
-      console.log("after buy", this.gettingData)
+      console.log("Data: ", this.gettingData)
     }
     else if(type === 6){
       this.userInfo = this.gettingData.body
+      console.log("Data: ", this.gettingData)
     }
-  }
-
-  getUuid(): string | undefined {
-    return window.sessionStorage.getItem(this.gettingData.body.uuid);
   }
 }

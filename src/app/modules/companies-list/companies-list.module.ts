@@ -13,11 +13,12 @@ import { CompaniesListComponent } from './companies-list.component';
 import { BuyStockComponent } from './buy-stock/buy-stock.component';
 import { UserInfoComponent } from '../user-info/user-info.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { NewsComponent } from '../news/news.component';
 
 
 
 @NgModule({
-  declarations: [CompaniesListComponent, BuyStockComponent, UserInfoComponent],
+  declarations: [CompaniesListComponent, BuyStockComponent, UserInfoComponent, NewsComponent],
   imports: [
     CommonModule,
     CompaniesListRoutingModule,
@@ -30,7 +31,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     FormsModule,
     ReactiveFormsModule,
   ],
-  exports: [CompaniesListComponent, UserInfoComponent],
+  exports: [CompaniesListComponent, UserInfoComponent, NewsComponent],
   providers: [ BuyStockComponent,
     { provide: MatDialogRef,
     useValue: {}
