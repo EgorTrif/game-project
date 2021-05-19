@@ -3,7 +3,8 @@
     border-width: 2px;
     border-color: black;
     border-style: solid;
-    width: min-content;
+    width: 1020px;
+    box-sizing: border-box
 }
 
 .border-two{
@@ -11,7 +12,8 @@
     border-width: 2px;
     border-color: black;
     border-style: solid;
-    width: min-content;
+    width: 470px;
+    box-sizing: border-box
 }
 button {
     margin: 10px;

@@ -44,3 +44,9 @@ export interface ClientData {
 			}
 		}
 }
+
+export interface NewsData {
+    theme: String,
+    source: String,
+	server_time: Number
+}

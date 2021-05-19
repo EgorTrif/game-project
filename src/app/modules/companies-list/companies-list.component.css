@@ -11,7 +11,7 @@ p {
 }
 
 mat-list {
-    height: max-content;
+    height: 650px;
     overflow: auto;
     box-sizing: border-box
   }

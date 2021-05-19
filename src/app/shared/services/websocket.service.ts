@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
-import { CompaniesList, KeepAlive, ClientData } from 'src/app/models/SendingData.model';
+import { BehaviorSubject, Observable } from 'rxjs';
+import { CompaniesList, KeepAlive, ClientData, NewsData } from 'src/app/models/SendingData.model';
 
 
 @Injectable({
@@ -10,6 +10,8 @@ export class WebsocketService {
 
   public list: CompaniesList[] = []
   public userInfo: ClientData
+  public allNewsList: NewsData[]
+  newsListWithTime: NewsData[] = []
   typeNumber: number;
   webSocket: WebSocket;
   gettingData: any;
@@ -42,8 +44,6 @@ export class WebsocketService {
       this.keepAlive(this.typeNumber)
       console.log(this.typeNumber)
     };
-
-    return this.gettingData
   }
 
   public sendMessage(data) {
@@ -76,6 +76,13 @@ export class WebsocketService {
     else if(type === 6){
       this.userInfo = this.gettingData.body
       console.log("Data: ", this.gettingData)
+    }
+    else if (type === 8){
+      this.newsListWithTime = this.gettingData.body.news
+    }
+    else if (type === 7) {
+      this.allNewsList = this.gettingData.body.news
+      console.log("news", this.allNewsList)
     }
   }
 }

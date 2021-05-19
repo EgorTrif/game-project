@@ -1,3 +1,10 @@
 <div class="news">
-<p>news works!</p>
+    <h2>All news:</h2>
+        <mat-list>
+            <mat-list-item *ngFor="let news of allNews">
+                <h4 matLine>{{news.theme}} </h4>
+                <p matLine>
+                {{ news.source }}
+                </mat-list-item>
+              </mat-list>
 </div>

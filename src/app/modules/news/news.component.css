@@ -2,3 +2,17 @@
     padding: .5rem!important;
     width: 450px;
 }
+h4 {
+    color: black;
+    font-weight: bold;
+    text-decoration: underline;
+}
+p {
+    margin: 0px;
+    color: black
+}
+mat-list {
+    height: 650px;
+    overflow: auto;
+    box-sizing: border-box;
+  }

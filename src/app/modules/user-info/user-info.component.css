@@ -10,7 +10,7 @@ p {
     color: black
 }
 mat-list {
-    height: max-content;
+    height: 600px;
     overflow: auto;
     box-sizing: border-box
   }
