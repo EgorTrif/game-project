@@ -5,6 +5,8 @@
                 <h4 matLine>{{news.theme}} </h4>
                 <p matLine>
                 {{ news.source }}
+                <p *ngIf="news.server_time < 60" style="float: right; font-size: small; color: grey;"> {{ news.server_time | number:'1.0-0' }} seconds ago...
+                <p *ngIf="news.server_time > 60" style="float: right; font-size: small; color: grey;"> {{ (news.server_time)/60 | number:'1.0-0' }} minutes ago...
                 </mat-list-item>
               </mat-list>
 </div>

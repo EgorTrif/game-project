@@ -5,11 +5,14 @@
 <p>Amount of stocks: {{userinfo.player_data.stocks.amount}}</p>
 <mat-list>
     <mat-list-item *ngFor="let company of userinfo.player_data.stocks.list">
-        <h4 matLine>Should be name of company: {{company.uuid}} </h4>
+        <h4 matLine>Name of company: {{company.name}} </h4>
         <p matLine>
           <span> Amount: {{company.amount}} </span>
         <p matLine>
             <span> Cost of all stocks: {{company.cost | number:'1.2-2'}} </span>
+            <button style="float: right;" (click)="SellStock(company)" mat-raised-button>
+              Sell
+            </button>
         </mat-list-item>
       </mat-list>
 </div>

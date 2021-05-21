@@ -8,17 +8,9 @@
     <h4 matLine> {{company.name}} </h4>
     <p matLine>
       <span> {{ company.cost | number:'1.2-2'}} </span>
-      <button style="float: right; border:0ch; background-color: transparent;" mat-icon-button [matMenuTriggerFor]="menu">
-        <mat-icon>more_vert</mat-icon>
-      </button>
-      <mat-menu #menu="matMenu">
-      <button mat-raised-button mat-menu-item (click)="BuyStock(company)">
+      <button style="float: right" mat-raised-button (click)="BuyStock(company)">
         Buy
       </button>
-      <button mat-raised-button mat-menu-item (click)="SellStock(company)">
-        Sell
-      </button>
-    </mat-menu>
     </mat-list-item>
   </mat-list>
 </div>

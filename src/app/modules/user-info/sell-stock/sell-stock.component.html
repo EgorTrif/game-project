@@ -1,0 +1,31 @@
+<mat-dialog-content>
+<div *ngIf="sell$ | async" class="sell-stock">
+    <form [formGroup] = "amountStoks" (ngSubmit) = "SellStock()">
+    <h3>Do you want to sell {{data.company.name}}'s stocks?</h3>
+      <p>Current price for one stock: {{data.company.cost | number:'1.2-2'}}</p>
+      <mat-form-field color="accent" class="example-full-width">
+        <mat-label>Amount of stocks:</mat-label>
+        <input formControlName = "AmountForSell" type="number" matInput>
+      </mat-form-field>
+      <p>Purchase amount: {{(this.amountStoks.value.AmountForSell)*(data.company.cost) | number:'1.2-2'}}</p>
+      <mat-dialog-actions>
+    <button
+        mat-dialog-close
+        mat-button
+        class="m-3 btn btn-sm btn-danger"
+        >
+          Close
+        </button>
+    <button
+      mat-dialog-close
+      mat-button
+        type="submit"
+        class="m-3 btn btn-sm btn-success"
+      >
+        Sell
+      </button>
+      </mat-dialog-actions>
+    <p>{{ message }}</p>
+  </form>
+  </div>
+</mat-dialog-content>

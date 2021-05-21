@@ -1,6 +1,11 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { ClientData } from 'src/app/models/SendingData.model';
+import { MatDialog } from '@angular/material/dialog';
+import { MatList } from '@angular/material/list';
+import { BehaviorSubject, Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
+import { ClientData, CompaniesList } from 'src/app/models/SendingData.model';
 import { WebsocketService } from 'src/app/shared/services/websocket.service';
+import { SellStockComponent } from './sell-stock/sell-stock.component';
 
 
 @Component({
@@ -10,23 +15,29 @@ import { WebsocketService } from 'src/app/shared/services/websocket.service';
 })
 export class UserInfoComponent implements OnInit, OnDestroy {
 
-  constructor(private websocket: WebsocketService) { }
+  constructor(
+    public websocket: WebsocketService,
+    public list: MatList,
+    public dialog: MatDialog) {
+      this.websocket.isUuid()
+     }
   
-
   userinfo: ClientData;
   refreshInfo: any
+  private unsubscribe$ = new Subject();
 
   ngOnInit(): void {
    this.refreshInfo = setInterval(() => {
       this.getUserData();
     }, 3000);
-    this.getUserData()
   }
 
   ngOnDestroy(): void {
     if(this.refreshInfo){
       clearInterval(this.refreshInfo)
     }
+    this.unsubscribe$.next()
+    this.unsubscribe$.complete()
   }
 
   getUserData(){
@@ -37,6 +48,12 @@ export class UserInfoComponent implements OnInit, OnDestroy {
     }
     this.websocket.sendMessage(sendResponse)
     this.userinfo = this.websocket.userInfo
-    
+  }
+
+  SellStock(company: CompaniesList) {
+    const dialogRef = this.dialog.open(SellStockComponent, { width: '500px', data: { company } });
+    dialogRef.afterClosed().pipe(takeUntil(this.unsubscribe$)).subscribe(result => {
+      this.getUserData()
+    });
   }
 }

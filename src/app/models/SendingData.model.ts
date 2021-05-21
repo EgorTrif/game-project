@@ -37,6 +37,7 @@ export interface ClientData {
 				list :
 				[
 					uuid : String,
+                    name: String,
 					amount : Number,
                     cost : Number,
 					value : Number

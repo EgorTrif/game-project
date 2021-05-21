@@ -27,7 +27,6 @@ import { WebsocketService } from './shared/services/websocket.service';
 import { CompaniesListComponent } from './modules/companies-list/companies-list.component';
 import { CompaniesListModule } from './modules/companies-list/companies-list.module';
 
-
 @NgModule({
   declarations: [
     AppComponent,

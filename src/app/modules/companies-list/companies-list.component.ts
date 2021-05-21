@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { Observable, Subject } from 'rxjs';
+import { Subject } from 'rxjs';
 import { CompaniesList } from 'src/app/models/SendingData.model';
 import { WebsocketService } from 'src/app/shared/services/websocket.service';
 import {MatList} from '@angular/material/list';
@@ -17,23 +17,22 @@ import { takeUntil } from 'rxjs/operators';
 })
 export class CompaniesListComponent implements OnInit, OnDestroy {
 
-  constructor(private buystock: BuyStockComponent,
+  constructor(
   public websocket: WebsocketService,
+  public buystock: BuyStockComponent,
   public list: MatList,
   public menu: MatMenu,
   public icon: MatIcon,
   public dialog: MatDialog) {
-    this.websocket.isUuid(),
-    this.buystock.isRouteBuyStock()
+    this.websocket.isUuid()
    }
 
   private unsubscribe$ = new Subject();
   refreshCompanies: any
   companies$: CompaniesList[]
   loading = true
-  
+
   ngOnInit(): void {
-    this.getAllCompanies()
     this.refreshCompanies  = setInterval(() => {
       this.getAllCompanies();
       this.loading = false
@@ -50,15 +49,7 @@ export class CompaniesListComponent implements OnInit, OnDestroy {
   BuyStock(company: CompaniesList) {
     const dialogRef = this.dialog.open(BuyStockComponent, { width: '500px', data: { company } });
     dialogRef.afterClosed().pipe(takeUntil(this.unsubscribe$)).subscribe(result => {
-      console.log(`Dialog result: ${result}`);
-    });
-  }
-  
-  SellStock(company: CompaniesList) {
-    this.buystock.setIsBuyStock(false)
-    const dialogRef = this.dialog.open(BuyStockComponent, { width: '500px', data: { company } });
-    dialogRef.afterClosed().pipe(takeUntil(this.unsubscribe$)).subscribe(result => {
-      console.log(`Dialog result: ${result}`);
+      this.getAllCompanies()
     });
   }
 
