@@ -1,6 +1,6 @@
 <mat-dialog-content>
     <div>
-        <div *ngIf="buy$ | async" class="buy-stock">
+        <div *ngIf="buy$" class="buy-stock">
           <form [formGroup] = "amountStoks" (ngSubmit) = "BuyStock()" class="example-form">
           <h3>Do you want to buy {{data.company.name}}'s stocks?</h3>
           <p>Current price for one stock: {{ data.company.cost | number:'1.2-2'}}</p>

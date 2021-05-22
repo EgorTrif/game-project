@@ -19,8 +19,7 @@ export class BuyStockComponent implements OnInit {
     this.websocket.isUuid()
    }
 
-  public _isBuy$ = new BehaviorSubject<boolean>(true);
-  buy$: Observable<boolean> = this._isBuy$
+  buy$ = true;
   amountStoks = new FormGroup({
     AmountForBuy: new FormControl(''),
     })

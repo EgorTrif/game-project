@@ -1,5 +1,5 @@
 <mat-dialog-content>
-<div *ngIf="sell$ | async" class="sell-stock">
+<div *ngIf="sell$" class="sell-stock">
     <form [formGroup] = "amountStoks" (ngSubmit) = "SellStock()">
     <h3>Do you want to sell {{data.company.name}}'s stocks?</h3>
       <p>Current price for one stock: {{data.company.cost | number:'1.2-2'}}</p>

@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { Subject } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import { CompaniesList } from 'src/app/models/SendingData.model';
 import { WebsocketService } from 'src/app/shared/services/websocket.service';
 import {MatList} from '@angular/material/list';
@@ -25,17 +25,20 @@ export class CompaniesListComponent implements OnInit, OnDestroy {
   public icon: MatIcon,
   public dialog: MatDialog) {
     this.websocket.isUuid()
+    this.websocket.isList()
    }
 
   private unsubscribe$ = new Subject();
+  uuid$: Observable<String> = this.websocket.isUuid()
+  uuid: String
   refreshCompanies: any
-  companies$: CompaniesList[]
-  loading = true
+  companies$: Observable<CompaniesList[]> = this.websocket.isList()
+  companies: CompaniesList[]
 
   ngOnInit(): void {
+    this.getAllCompanies()
     this.refreshCompanies  = setInterval(() => {
       this.getAllCompanies();
-      this.loading = false
     }, 3000);
   }
 
@@ -54,13 +57,23 @@ export class CompaniesListComponent implements OnInit, OnDestroy {
   }
 
   getAllCompanies(){
-    const reqSocket = {
-      body: {},
-      type: 4,
-      uuid: this.websocket._uuid$._value
-    }
-    this.websocket.sendMessage(reqSocket);
-    this.companies$ = this.websocket.list
+    this.uuid$.subscribe(data => {
+      this.uuid = data
+      if(this.uuid != "") {
+        const reqSocket = {
+          body: {},
+          type: 4,
+          uuid: this.uuid
+        }
+        this.websocket.sendMessage(reqSocket);
+        
+        this.companies$.subscribe(data => {
+          if(data.length != 0){
+            this.companies = data
+          }
+        })
+      }
+    })
   }
 }
 

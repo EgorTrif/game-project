@@ -1,10 +1,7 @@
 <div class = "list">
 <h2>List of companies:</h2>
 <mat-list>
-  <div *ngIf="loading">
-    <p class="text-center">Loading companies...</p>
-  </div>
-    <mat-list-item *ngFor="let company of companies$">
+    <mat-list-item *ngFor="let company of companies">
     <h4 matLine> {{company.name}} </h4>
     <p matLine>
       <span> {{ company.cost | number:'1.2-2'}} </span>

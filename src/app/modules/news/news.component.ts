@@ -1,4 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Observable } from 'rxjs';
 import { NewsData } from 'src/app/models/SendingData.model';
 import { WebsocketService } from 'src/app/shared/services/websocket.service';
 
@@ -9,36 +10,44 @@ import { WebsocketService } from 'src/app/shared/services/websocket.service';
 })
 export class NewsComponent implements OnInit, OnDestroy {
 
-  constructor(private websocket: WebsocketService) { }
+  constructor(private websocket: WebsocketService) { 
+    this.websocket.isUuid()
+    this.websocket.isNews()
+  }
   
-
+  uuid$: Observable<String> = this.websocket.isUuid()
+  uuid: String
+  allNews$: Observable<NewsData[]> = this.websocket.isNews()
   allNews: NewsData[]
   refreshNews: any
 
   ngOnInit(): void {
-    setTimeout(() => {
-      this.getAllNews();}, 1000);
-    this.refreshNews = setInterval(() => {
-      this.getAllNews();
-    }, 5000);
+    this.getAllNews()
   }
 
   ngOnDestroy(): void {
-    if(this.refreshNews){
-      clearInterval(this.refreshNews)
-    }
   }
 
   getAllNews(){
-    const sendResponse = {
-      body: {
-        amount: -1
-      },
-      type: 8,
-      uuid: this.websocket._uuid$._value
-    }
-    this.websocket.sendMessage(sendResponse)
-    this.allNews = this.websocket.allNewsList
+    this.uuid$.subscribe(data => {
+      this.uuid = data
+      if(this.uuid != "") {
+        const reqSocket = {
+          body: {
+            amount: -1
+          },
+          type: 8,
+          uuid: this.websocket._uuid$._value
+        }
+        this.websocket.sendMessage(reqSocket)
+
+        this.allNews$.subscribe(data => {
+          if(data != undefined){
+            this.allNews = data
+          }
+        })
+      }
+    })
   }
 
 }
