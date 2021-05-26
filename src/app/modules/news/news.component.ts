@@ -37,7 +37,7 @@ export class NewsComponent implements OnInit, OnDestroy {
             amount: -1
           },
           type: 8,
-          uuid: this.websocket._uuid$._value
+          uuid: this.uuid
         }
         this.websocket.sendMessage(reqSocket)
 
