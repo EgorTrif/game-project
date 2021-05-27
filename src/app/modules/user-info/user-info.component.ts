@@ -62,7 +62,8 @@ export class UserInfoComponent implements OnInit, OnDestroy {
 
   SellStock(company: CompaniesList) {
     const dialogRef = this.dialog.open(SellStockComponent, { width: '500px', data: { company } });
-    dialogRef.afterClosed().pipe(takeUntil(this.unsubscribe$)).subscribe(result => {
+    dialogRef.afterOpened().pipe(takeUntil(this.unsubscribe$)).subscribe(result => {
+      console.log(result)
       this.getUserData()
     });
   }

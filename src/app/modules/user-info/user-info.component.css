@@ -1,6 +1,5 @@
 .user-info {
     padding: .5rem!important;
-    width: 450px;
 }
 h4 {
     color: black
@@ -10,7 +9,7 @@ p {
     color: black
 }
 mat-list {
-    height: 600px;
+    height: 410px;
     overflow: auto;
     box-sizing: border-box
   }

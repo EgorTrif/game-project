@@ -39,8 +39,12 @@ export class WebsocketService {
     this._userInfo$.next(user)
   }
 
-  public dataChanger(list: CompaniesList[], news: NewsData[] ){
+  public listChanger(list: CompaniesList[], news: NewsData[] ){
     this._list$.next(list)
+    this._allNewsList$.next(news)
+  }
+
+  public newsChanger(news: NewsData[] ){
     this._allNewsList$.next(news)
   }
 
@@ -83,8 +87,12 @@ export class WebsocketService {
     else if(type === 3){
       this.keepAlive()
     }
-    else if(type === 4 || type === 7){
-      this.dataChanger(this.gettingData.body.list,this.gettingData.body.news)
+    else if(type === 4){
+      this.listChanger(this.gettingData.body.list,this.gettingData.body.news)
+      console.log("Data: ", this.gettingData)
+    }
+    else if(type === 7){
+      this.newsChanger(this.gettingData.body.news)
       console.log("Data: ", this.gettingData)
     }
     else if(type === 5){
@@ -97,8 +105,8 @@ export class WebsocketService {
     else if (type === 8){
       this.newsListWithTime = this.gettingData.body.news
     }
-    else if (type === 7) {
-      //this.allNewsList = this.gettingData.body.news
+    else if(type === 9){
+      console.log("Data: ", this.gettingData)
     }
     console.log(this.gettingData)
   }

@@ -1,7 +1,7 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { MatDialog, MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import { CompaniesList } from 'src/app/models/SendingData.model';
 import { WebsocketService } from 'src/app/shared/services/websocket.service';
 
@@ -19,6 +19,9 @@ export class BuyStockComponent implements OnInit {
     this.websocket.isUuid()
    }
 
+  private unsubscribe$ = new Subject();
+  uuid$: Observable<String> = this.websocket.isUuid()
+  uuid: String 
   buy$ = true;
   amountStoks = new FormGroup({
     AmountForBuy: new FormControl(''),
@@ -29,17 +32,25 @@ export class BuyStockComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  ngOnDestroy(): void {
+    this.unsubscribe$.next()
+    this.unsubscribe$.complete()
+  }
+
   BuyStock() {
-    const sendResponse = {
-      type: 5,
+    this.uuid$.subscribe(data => {
+      this.uuid = data
+      if(this.uuid != "") {
+        const reqSocket = {
+          type: 5,
       body: {
         uuid: this.data.company.uuid,
-        amount: this.amountStoks.value.AmountForBuy,
+        amount: Number(this.amountStoks.value.AmountForBuy),
         cost: Number(this.data.company.cost)
       },
-      uuid: this.websocket._uuid$._value
-    }
-    this.websocket.sendMessage(sendResponse)
-    console.log(sendResponse)
+      uuid: this.uuid
+        }
+        this.websocket.sendMessage(reqSocket);
+    }});
   }
 }

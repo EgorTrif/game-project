@@ -1,9 +1,17 @@
+.list{
+    width: 65%;
+    height: 50%
+}
+.user-info{
+    width: 34%;
+    height: 50%
+}
 .border-one{
     margin: 10px;
     border-width: 2px;
     border-color: black;
     border-style: solid;
-    width: 1020px;
+    width: 100%;
     box-sizing: border-box
 }
 
@@ -12,8 +20,9 @@
     border-width: 2px;
     border-color: black;
     border-style: solid;
-    width: 470px;
-    box-sizing: border-box
+    width: 100%;
+    box-sizing: border-box;
+    height: 568px;
 }
 button {
     margin: 10px;

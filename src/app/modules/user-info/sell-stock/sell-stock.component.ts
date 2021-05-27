@@ -1,7 +1,7 @@
-import { Component, OnInit, Inject } from '@angular/core';
+import { Component, OnInit, Inject, OnDestroy } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { MatDialog, MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import { CompaniesList } from 'src/app/models/SendingData.model';
 import { WebsocketService } from 'src/app/shared/services/websocket.service';
 
@@ -11,7 +11,7 @@ import { WebsocketService } from 'src/app/shared/services/websocket.service';
   templateUrl: './sell-stock.component.html',
   styleUrls: ['./sell-stock.component.css']
 })
-export class SellStockComponent implements OnInit {
+export class SellStockComponent implements OnInit, OnDestroy {
 
   constructor(public dialogRef: MatDialogRef<SellStockComponent>,
     @Inject(MAT_DIALOG_DATA) public data:{ company: CompaniesList},
@@ -19,7 +19,12 @@ export class SellStockComponent implements OnInit {
     private websocket: WebsocketService) {
       this.websocket.isUuid()
      }
-
+  
+    
+    
+    private unsubscribe$ = new Subject();
+    uuid$: Observable<String> = this.websocket.isUuid()
+    uuid: String
      sell$ = true 
      amountStoks = new FormGroup({
        AmountForSell: new FormControl('')
@@ -29,16 +34,24 @@ export class SellStockComponent implements OnInit {
    
      ngOnInit(): void {
      }
+
+     ngOnDestroy(): void {
+      this.unsubscribe$.next()
+      this.unsubscribe$.complete()
+    }
    
      SellStock() {
-       const sendResponse = {
-         type: 9,
-         body: {
-           uuid: this.data.company.uuid,
-           amount: this.amountStoks.value.AmountForSell,
-         },
-         uuid: this.websocket._uuid$._value
-       }
-       this.websocket.sendMessage(sendResponse)
+      this.uuid$.subscribe(data => {
+        this.uuid = data
+        if(this.uuid != "") {
+          const reqSocket = {
+            body: {
+              uuid: this.data.company.uuid,
+              amount: Number(this.amountStoks.value.AmountForSell)},
+            type: 9,
+            uuid: this.uuid
+          }
+          this.websocket.sendMessage(reqSocket);
+      }});
      }
 }
