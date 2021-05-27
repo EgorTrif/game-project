@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
-import { TokenStorageService } from '../../services/token-storage.service';
 
 @Component({
   selector: 'app-header',

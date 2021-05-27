@@ -1,9 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { Observable } from 'rxjs';
 import { WebsocketService } from 'src/app/shared/services/websocket.service';
-import { TokenStorageService } from 'src/app/shared/services/token-storage.service';
 import { LoginData } from 'src/app/models/SendingData.model';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
@@ -24,7 +22,6 @@ export class LoginPageComponent implements OnInit, OnDestroy {
   errorMessage: string = ""
 
   constructor(private router: Router,
-    private tokenStorage: TokenStorageService,
     public websocket: WebsocketService,
     private _snackBar: MatSnackBar) {
      }
