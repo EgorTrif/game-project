@@ -8,6 +8,7 @@ import {MatIcon} from '@angular/material/icon';
 import { MatDialog } from '@angular/material/dialog';
 import { BuyStockComponent } from './buy-stock/buy-stock.component';
 import { takeUntil } from 'rxjs/operators';
+import { UserInfoComponent } from '../user-info/user-info.component';
 
 
 @Component({
@@ -20,6 +21,7 @@ export class CompaniesListComponent implements OnInit, OnDestroy {
   constructor(
   public websocket: WebsocketService,
   public buystock: BuyStockComponent,
+  public userinfo: UserInfoComponent,
   public list: MatList,
   public menu: MatMenu,
   public icon: MatIcon,
@@ -52,7 +54,8 @@ export class CompaniesListComponent implements OnInit, OnDestroy {
   BuyStock(company: CompaniesList) {
     const dialogRef = this.dialog.open(BuyStockComponent, { width: '500px', data: { company } });
     dialogRef.afterClosed().pipe(takeUntil(this.unsubscribe$)).subscribe(result => {
-      this.getAllCompanies()
+      console.log("Result",result)
+      this.userinfo.getUserData()
     });
   }
 

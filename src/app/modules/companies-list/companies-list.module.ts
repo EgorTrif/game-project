@@ -35,6 +35,7 @@ import { SellStockComponent } from '../user-info/sell-stock/sell-stock.component
   exports: [CompaniesListComponent, UserInfoComponent, NewsComponent],
   providers: [ BuyStockComponent,
     SellStockComponent,
+    UserInfoComponent,
     { provide: MatDialogRef,
     useValue: {}
   },

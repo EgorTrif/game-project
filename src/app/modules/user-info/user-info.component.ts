@@ -53,7 +53,6 @@ export class UserInfoComponent implements OnInit, OnDestroy {
         this.userInfo$.subscribe(data => {
           if(data != ""){
             this.userinfo = data
-            console.log("USER INFO",this.userinfo)
           }
         })
       }
@@ -62,8 +61,8 @@ export class UserInfoComponent implements OnInit, OnDestroy {
 
   SellStock(company: CompaniesList) {
     const dialogRef = this.dialog.open(SellStockComponent, { width: '500px', data: { company } });
-    dialogRef.afterOpened().pipe(takeUntil(this.unsubscribe$)).subscribe(result => {
-      console.log(result)
+    dialogRef.afterClosed().pipe(takeUntil(this.unsubscribe$)).subscribe(result => {
+      console.log("Result",result)
       this.getUserData()
     });
   }

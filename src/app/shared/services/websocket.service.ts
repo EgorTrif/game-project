@@ -8,6 +8,7 @@ import { CompaniesList, KeepAlive, ClientData, NewsData } from 'src/app/models/S
 })
 export class WebsocketService {
 
+  private readonly _isAuthenticated$ = new BehaviorSubject<boolean>(false);
   public _list$ = new BehaviorSubject<CompaniesList[]>([])
   public _userInfo$ = new BehaviorSubject<any>("")
   public _allNewsList$ = new BehaviorSubject<NewsData[]>([])
@@ -81,7 +82,7 @@ export class WebsocketService {
 
   allRequests(type) {
     if(type === 1){
-      this.typeChanger(this.gettingData.body.uuid) 
+      this.typeChanger(this.gettingData.body.uuid)
       console.log("logged in", this.gettingData.body)
     }
     else if(type === 3){

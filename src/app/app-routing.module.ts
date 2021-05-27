@@ -4,6 +4,7 @@ import { HomePageComponent } from './core/home-page/home-page.component';
 import { LoginPageComponent } from './core/login-page/login-page.component';
 import { RegistrPageComponent } from './core/registr-page/registr-page.component';
 import { MainLayoutComponent } from './shared/components/main-layout/main-layout.component';
+import { AuthGuardService } from './shared/services/authguard.service';
 const routes: Routes = [
   {
     path: '', component: MainLayoutComponent, children: [
