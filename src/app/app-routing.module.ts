@@ -9,10 +9,10 @@ const routes: Routes = [
   {
     path: '', component: MainLayoutComponent, children: [
       {path: '', redirectTo: '/login', pathMatch: 'full'},
-      {path: 'home', component: HomePageComponent},
+      {path: 'home', component: HomePageComponent, canActivate: [AuthGuardService]},
       {path: 'login', component: LoginPageComponent},
       {path: 'registr', component: RegistrPageComponent},
-      {path: 'companies-list', loadChildren: () => import('./modules/companies-list/companies-list.module').then(m => m.CompaniesListModule) }
+      {path: 'companies-list', loadChildren: () => import('./modules/companies-list/companies-list.module').then(m => m.CompaniesListModule), canActivate: [AuthGuardService] }
     ]
   },
 ];

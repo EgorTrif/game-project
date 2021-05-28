@@ -18,7 +18,17 @@ export class WebsocketService {
   gettingData: any;
   public _uuid$ = new BehaviorSubject<string>("")
 
-  constructor() { }
+  constructor() { 
+    this.isRouteAuthenticated()
+  }
+
+  public isRouteAuthenticated() {
+    return this._isAuthenticated$;
+  }
+
+  public setIsAuthenticated(isAuth: boolean): void {
+    this._isAuthenticated$.next(isAuth)
+  }
 
   public isUuid() {
     return this._uuid$;
@@ -82,7 +92,8 @@ export class WebsocketService {
 
   allRequests(type) {
     if(type === 1){
-      this.typeChanger(this.gettingData.body.uuid)
+      this.typeChanger(this.gettingData.body.uuid) 
+      this.setIsAuthenticated(true)
       console.log("logged in", this.gettingData.body)
     }
     else if(type === 3){
@@ -118,6 +129,10 @@ export class WebsocketService {
       type: 3
     }
     this.sendMessage(sendRequest)
+  }
+
+  logout(){
+    this.setIsAuthenticated(false)
   }
 
 }

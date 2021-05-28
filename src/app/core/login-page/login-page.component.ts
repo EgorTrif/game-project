@@ -4,6 +4,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { WebsocketService } from 'src/app/shared/services/websocket.service';
 import { LoginData } from 'src/app/models/SendingData.model';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { Observable } from 'rxjs';
 
 
 @Component({
@@ -13,6 +14,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 })
 export class LoginPageComponent implements OnInit, OnDestroy {
 
+  readonly isLoggedIn$:Observable<boolean> = this.websocket.isRouteAuthenticated()
   loginForm = true;
   formGroup!: FormGroup;
 
@@ -24,6 +26,7 @@ export class LoginPageComponent implements OnInit, OnDestroy {
   constructor(private router: Router,
     public websocket: WebsocketService,
     private _snackBar: MatSnackBar) {
+      this.websocket.isRouteAuthenticated()
      }
 
   ngOnInit(): void {
@@ -60,11 +63,24 @@ export class LoginPageComponent implements OnInit, OnDestroy {
         type: 1,
       }
       this.websocket.sendMessage(sendData)
-      this.router.navigateByUrl('/home')
-      this._snackBar.open('You have successfully loged in!', 'x', {
-        duration: 3000,
-        horizontalPosition: "center",
-        verticalPosition: "top",
+      this.isLoggedIn$.subscribe(data => {
+        if(data === true){
+          this.router.navigateByUrl('/home')
+          this._snackBar.open('You have successfully loged in!', 'x', {
+            duration: 3000,
+            horizontalPosition: "center",
+            verticalPosition: "top",
+            panelClass: ['green-snackbar']
+          })
+        }
+        else if(data === false) {
+          this._snackBar.open('Wrong login or password. Please, try again!', 'x', {
+            duration: 5000,
+            horizontalPosition: "center",
+            verticalPosition: "top",
+            panelClass: ['red-snackbar']
+          })
+        }
       })
     }
   }

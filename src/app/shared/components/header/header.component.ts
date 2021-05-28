@@ -23,10 +23,6 @@ export class HeaderComponent implements OnInit {
   logout(): void {
   }
 
-  blockAccess(): void {
-    
-  }
-
   registr(){
     this.router.navigateByUrl('/registr')
   }

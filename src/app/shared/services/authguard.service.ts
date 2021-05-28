@@ -14,14 +14,15 @@ export class AuthGuardService implements CanActivate {
 
   uuid$: Observable<String> = this.websocket.isUuid()
   uuid: String
-
     canActivate(
       next: ActivatedRouteSnapshot,
       state: RouterStateSnapshot): boolean {
-      this.uuid$.subscribe( data => {
-        this.uuid = data
+      this.uuid$.subscribe(data => {
+        if(data != ""){
+          this.uuid = data
+        }
       })
-      if(this.uuid != ""){
+      if(this.uuid != undefined){
         return true;
       }
       else {
