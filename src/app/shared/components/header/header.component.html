@@ -1,14 +1,8 @@
-<mat-toolbar class="navbar">
-    <div routerLink = "/">Game</div>
+<mat-toolbar *ngIf="isLoggedIn$ | async" class="navbar">
+    <div routerLink = "/home">Game</div>
     <div>
-        <button (click) = "login()" mat-button>
-            Log in
-        </button>
-        <button  (click) = "logout()" mat-button>
+        <button (click) = "logout()" mat-button>
             Log out
-        </button>
-        <button (click) = "registr()" mat-button>
-            Sign in
         </button>
     </div>
 </mat-toolbar>

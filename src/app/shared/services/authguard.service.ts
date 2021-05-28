@@ -22,7 +22,7 @@ export class AuthGuardService implements CanActivate {
           this.uuid = data
         }
       })
-      if(this.uuid != undefined){
+      if(this.uuid != undefined && this.uuid !=""){
         return true;
       }
       else {

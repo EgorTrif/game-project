@@ -28,7 +28,9 @@
         
           <button [disabled] = "registrForm.invalid" mat-flat-button color="accent" type="submit" class="logButton">Confirm</button>
       </form>
-      <br>
-      <p *ngIf="isLoggedIn$ | async">You are already registered</p>
+      <p style="text-align: center;">or <a mat-button routerLink="/login">Log in</a></p>
     </mat-card>
+    <ng-template *ngIf="isLoggedIn$ | async">
+      You are already registered!
+    </ng-template>
 </div>

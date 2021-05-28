@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
+import { WebsocketService } from '../../services/websocket.service';
 
 @Component({
   selector: 'app-header',
@@ -9,9 +10,12 @@ import { Observable } from 'rxjs';
 })
 export class HeaderComponent implements OnInit {
 
-  readonly isLoggedIn$:Observable<boolean>
+  readonly isLoggedIn$:Observable<boolean> = this.websocket.isRouteAuthenticated()
 
-  constructor(private router: Router) { }
+  constructor(private router: Router,
+    private websocket: WebsocketService) {
+      this.websocket.isRouteAuthenticated()
+     }
 
   ngOnInit(): void {
   }
@@ -21,10 +25,15 @@ export class HeaderComponent implements OnInit {
   }
 
   logout(): void {
+    this.router.navigateByUrl('/login')
+    this.websocket.closeWebSocket()
+    this.websocket.setIsAuthenticated(false)
+    this.websocket.isRouteAuthenticated()
+    this.websocket.typeChanger("")
+    this.websocket.openWebSocket()
   }
 
   registr(){
     this.router.navigateByUrl('/registr')
   }
-
 }

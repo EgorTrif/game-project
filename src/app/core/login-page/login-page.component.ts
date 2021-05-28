@@ -4,7 +4,8 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { WebsocketService } from 'src/app/shared/services/websocket.service';
 import { LoginData } from 'src/app/models/SendingData.model';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { Observable } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
+import { async } from '@angular/core/testing';
 
 
 @Component({
@@ -14,6 +15,7 @@ import { Observable } from 'rxjs';
 })
 export class LoginPageComponent implements OnInit, OnDestroy {
 
+  private unsubscribe$ = new Subject();
   readonly isLoggedIn$:Observable<boolean> = this.websocket.isRouteAuthenticated()
   loginForm = true;
   formGroup!: FormGroup;
@@ -34,6 +36,8 @@ export class LoginPageComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
+    this.unsubscribe$.next()
+    this.unsubscribe$.complete()
   }
 
   initForm(){

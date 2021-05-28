@@ -17,5 +17,9 @@
           <button [disabled] = "loginForm.invalid" mat-flat-button color="accent" type="submit" class="logButton">Login</button>
       </form>
       <br>
+      <p style="text-align: center;">or <a mat-button routerLink="/registr">Sign in</a></p>
     </mat-card>
+    <ng-template *ngIf="isLoggedIn$ | async">
+      You are already loged in!
+    </ng-template>
 </div>
