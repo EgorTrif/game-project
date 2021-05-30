@@ -26,6 +26,7 @@ import { HeaderComponent } from './shared/components/header/header.component';
 import { WebsocketService } from './shared/services/websocket.service';
 import { CompaniesListComponent } from './modules/companies-list/companies-list.component';
 import { CompaniesListModule } from './modules/companies-list/companies-list.module';
+import { GlobalChatComponent } from './modules/global-chat/global-chat.component';
 
 @NgModule({
   declarations: [
@@ -34,7 +35,8 @@ import { CompaniesListModule } from './modules/companies-list/companies-list.mod
     HomePageComponent,
     LoginPageComponent,
     RegistrPageComponent,
-    HeaderComponent
+    HeaderComponent,
+    GlobalChatComponent
   ],
   entryComponents: [CompaniesListComponent],
   imports: [
@@ -57,7 +59,7 @@ import { CompaniesListModule } from './modules/companies-list/companies-list.mod
     MatDialogModule,
     CompaniesListModule
   ],
-  providers: [ WebsocketService],
+  providers: [ WebsocketService, LoginPageComponent],
   bootstrap: [AppComponent],
 })
 export class AppModule { }

@@ -2,7 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatList } from '@angular/material/list';
 import { Observable, Subject } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
+import { skip, takeUntil } from 'rxjs/operators';
 import { ClientData, CompaniesList } from 'src/app/models/SendingData.model';
 import { WebsocketService } from 'src/app/shared/services/websocket.service';
 import { SellStockComponent } from './sell-stock/sell-stock.component';
@@ -35,8 +35,6 @@ export class UserInfoComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.unsubscribe$.next()
-    this.unsubscribe$.complete()
   }
 
   getUserData(){

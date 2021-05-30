@@ -51,3 +51,9 @@ export interface NewsData {
     source: String,
 	server_time: Number
 }
+
+export interface ChatMessage {
+    player_name: string,
+    server_time: number,
+    text: string
+}

@@ -1,5 +1,5 @@
 <mat-toolbar *ngIf="isLoggedIn$ | async" class="navbar">
-    <div routerLink = "/home">Game</div>
+    <a routerLink = "/home">Game</a>
     <div>
         <button (click) = "logout()" mat-button>
             Log out

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable } from 'rxjs';
-import { CompaniesList, KeepAlive, ClientData, NewsData } from 'src/app/models/SendingData.model';
+import { BehaviorSubject} from 'rxjs';
+import { CompaniesList, ClientData, NewsData } from 'src/app/models/SendingData.model';
 
 
 @Injectable({
@@ -9,13 +9,14 @@ import { CompaniesList, KeepAlive, ClientData, NewsData } from 'src/app/models/S
 export class WebsocketService {
 
   private readonly _isAuthenticated$ = new BehaviorSubject<boolean>(false);
+
   public _list$ = new BehaviorSubject<CompaniesList[]>([])
   public _userInfo$ = new BehaviorSubject<any>("")
   public _allNewsList$ = new BehaviorSubject<NewsData[]>([])
   newsListWithTime: NewsData[] = []
   typeNumber: number;
   webSocket: WebSocket;
-  gettingData: any;
+  public gettingData: any;
   public _uuid$ = new BehaviorSubject<string>("")
 
   constructor() { 
@@ -50,9 +51,8 @@ export class WebsocketService {
     this._userInfo$.next(user)
   }
 
-  public listChanger(list: CompaniesList[], news: NewsData[] ){
+  public listChanger(list: CompaniesList[]){
     this._list$.next(list)
-    this._allNewsList$.next(news)
   }
 
   public newsChanger(news: NewsData[] ){
@@ -73,7 +73,7 @@ export class WebsocketService {
     this.webSocket.onclose = (event) => {
       console.log('Close: ', event);
     };
-
+    
     this.webSocket.onmessage = (event) => {
       this.gettingData = JSON.parse(event.data);
       this.typeNumber = this.gettingData.type
@@ -100,7 +100,7 @@ export class WebsocketService {
       this.keepAlive()
     }
     else if(type === 4){
-      this.listChanger(this.gettingData.body.list,this.gettingData.body.news)
+      this.listChanger(this.gettingData.body.list)
       console.log("Data: ", this.gettingData)
     }
     else if(type === 7){
@@ -120,19 +120,19 @@ export class WebsocketService {
     else if(type === 9){
       console.log("Data: ", this.gettingData)
     }
-    console.log(this.gettingData)
-  }
-
-  keepAlive(){
-    const sendRequest: KeepAlive = {
-      body: {},
-      type: 3
+    else if(type === 10){
+      console.log("Data: ", this.gettingData)
     }
-    this.sendMessage(sendRequest)
   }
 
-  logout(){
-    this.setIsAuthenticated(false)
+    keepAlive(){
+      if(this.gettingData.type === 3){
+        const sendRequest = {
+          body: {},
+          type: 3
+        }
+        this.sendMessage(sendRequest)
+      }
   }
 
 }

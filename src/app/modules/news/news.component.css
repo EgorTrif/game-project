@@ -12,7 +12,7 @@ p {
     color: black
 }
 mat-list {
-    height: 650px;
+    height: 480px;
     overflow: auto;
     box-sizing: border-box;
   }

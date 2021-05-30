@@ -23,9 +23,15 @@ export class NewsComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.getAllNews()
+    this.refreshNews  = setInterval(() => {
+      this.getAllNews();
+    }, 5000);
   }
 
   ngOnDestroy(): void {
+    if(this.refreshNews){
+      clearInterval(this.refreshNews)
+    }
   }
 
   getAllNews(){

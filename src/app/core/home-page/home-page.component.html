@@ -9,12 +9,15 @@
 </div>
 <div class="p-2 flex-shrink-1 bd-highlight user-info">
 <button mat-raised-button color="accent"
-[disabled]="userinfo" (click) = "switchTabs()">Profile</button>
+(click)="openUserInfo()">Profile</button>
 <button mat-raised-button color="warn"
-[disabled]="!userinfo" (click) = "switchTabs()">News</button>
+(click)="openNews()">News</button>
+<button mat-raised-button color="primary"
+(click)="openGlobalChat()">Global chat</button>
     <div class="border-two">
     <app-user-info *ngIf="userinfo"></app-user-info>
-    <app-news *ngIf="!userinfo"></app-news>
+    <app-news *ngIf="newsOn"></app-news>
+    <app-global-chat *ngIf="chatOn"></app-global-chat>
     </div>
 </div>
 </div>

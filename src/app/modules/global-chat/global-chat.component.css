@@ -1,0 +1,19 @@
+.g-chat {
+    padding: .5rem!important;
+}
+
+div.chat-content {
+    border-radius: .25rem;
+    height: 400px;
+    margin-bottom: 2rem;
+}
+
+.card {
+    height: 100%;
+}
+
+ul {
+    height: 400px;
+    overflow: auto;
+    box-sizing: border-box
+  }

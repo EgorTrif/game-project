@@ -9,18 +9,26 @@ export class HomePageComponent implements OnInit {
 
   constructor() { }
 
-  userinfo = true
+  userinfo: boolean = true;
+  chatOn: boolean = false;
+  newsOn:boolean = false
 
   ngOnInit(): void {
   }
 
-  switchTabs() {
-    if(this.userinfo){
-      this.userinfo = false
-    }
-    else {
-      this.userinfo = true
-    }
+  openUserInfo(){
+    this.userinfo=true;
+    this.chatOn=false;
+    this.newsOn=false;
   }
-
+  openNews(){
+    this.userinfo=false;
+    this.chatOn=false;
+    this.newsOn=true;
+  }
+  openGlobalChat(){
+    this.userinfo=false;
+    this.chatOn=true;
+    this.newsOn=false;
+  }
 }

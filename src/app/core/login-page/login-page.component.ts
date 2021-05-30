@@ -4,8 +4,8 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { WebsocketService } from 'src/app/shared/services/websocket.service';
 import { LoginData } from 'src/app/models/SendingData.model';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { Observable, Subject } from 'rxjs';
-import { async } from '@angular/core/testing';
+import { BehaviorSubject, Observable, Subject } from 'rxjs';
+import { skip, skipWhile } from 'rxjs/operators';
 
 
 @Component({
@@ -15,9 +15,10 @@ import { async } from '@angular/core/testing';
 })
 export class LoginPageComponent implements OnInit, OnDestroy {
 
+  
+
   private unsubscribe$ = new Subject();
   readonly isLoggedIn$:Observable<boolean> = this.websocket.isRouteAuthenticated()
-  loginForm = true;
   formGroup!: FormGroup;
 
   login = new FormControl("", [Validators.required]);
@@ -30,6 +31,7 @@ export class LoginPageComponent implements OnInit, OnDestroy {
     private _snackBar: MatSnackBar) {
       this.websocket.isRouteAuthenticated()
      }
+
 
   ngOnInit(): void {
     this.initForm()
@@ -57,6 +59,7 @@ export class LoginPageComponent implements OnInit, OnDestroy {
     return
   }
 
+
   onSubmit(){
     if(this.formGroup.valid) {
       const sendData: LoginData = {
@@ -67,7 +70,8 @@ export class LoginPageComponent implements OnInit, OnDestroy {
         type: 1,
       }
       this.websocket.sendMessage(sendData)
-      this.isLoggedIn$.subscribe(data => {
+     
+      this.isLoggedIn$.pipe(skip(1)).subscribe(data => {
         if(data === true){
           this.router.navigateByUrl('/home')
           this._snackBar.open('You have successfully loged in!', 'x', {
@@ -87,5 +91,6 @@ export class LoginPageComponent implements OnInit, OnDestroy {
         }
       })
     }
-  }
 }
+}
+

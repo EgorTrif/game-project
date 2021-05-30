@@ -14,6 +14,7 @@ export class MainLayoutComponent implements OnInit, OnDestroy {
     this.websocket.openWebSocket();
   }
 
+
   ngOnDestroy(): void {
     this.websocket.closeWebSocket();
   }

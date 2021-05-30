@@ -1,7 +1,8 @@
 /* You can add global styles to this file, and also import other style files */
 
 html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; 
+     background-image: linear-gradient(-50deg,rgb(252, 143, 215) 0%, rgb(0, 224, 213) 100%);}
 .green-snackbar {
     background-color: rgb(65, 163, 0);
 }

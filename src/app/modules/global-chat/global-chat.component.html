@@ -1,0 +1,29 @@
+    <main class="g-chat">
+        <h2>Global chat</h2>
+        <div class="container">
+            <div class="chat-content">
+                <div class="card">
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item" *ngFor="let chatMessage of messages">
+                            <strong>{{chatMessage.player_name}}: </strong>
+                            <span>{{chatMessage.text}}</span>
+                            <p style="font-size: small; color: grey;">{{chatMessage.server_time}}
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <form [formGroup]="formGroup" (ngSubmit)="sendMessage()" >
+                <div class="chat-send row">
+                    <div class="col-3">
+                        <input formControlName="player_name" type="text" class="form-control">
+                    </div>
+                    <div class="col-7">
+                        <input formControlName="text" type="text" class="form-control">
+                    </div>
+                    <div class="col-2">
+                        <button type="submit" class="btn btn-primary">Send</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </main>

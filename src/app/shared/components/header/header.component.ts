@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
+import { LoginPageComponent } from 'src/app/core/login-page/login-page.component';
 import { WebsocketService } from '../../services/websocket.service';
 
 @Component({
