@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
-import { Observable } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import { ChatMessage } from 'src/app/models/SendingData.model';
 import { ChatService } from 'src/app/shared/services/chat.service';
 import { WebsocketService } from 'src/app/shared/services/websocket.service';
@@ -11,7 +11,7 @@ import { UserInfoComponent } from '../user-info/user-info.component';
   templateUrl: './global-chat.component.html',
   styleUrls: ['./global-chat.component.css']
 })
-export class GlobalChatComponent implements OnInit {
+export class GlobalChatComponent implements OnInit, OnDestroy {
 
   constructor(
     private websocket: WebsocketService,
@@ -20,12 +20,13 @@ export class GlobalChatComponent implements OnInit {
       this.websocket.isUuid()
     }
 
+  private unsubscribe$ = new Subject();
   uuid$: Observable<String> = this.websocket.isUuid()
   uuid: String
   messages: ChatMessage[] = []
   formGroup!: FormGroup;
   text = new FormControl("");
-  player_name = new FormControl("");
+  player_name = new FormControl({value: this.userinfo.userinfo.login, disabled: true});
   refreshChat: any
 
   ngOnInit(): void {
@@ -34,7 +35,11 @@ export class GlobalChatComponent implements OnInit {
     this.refreshChat  = setInterval(() => {
       this.getAllMessages();
     }, 1000);
-    
+  }
+
+  ngOnDestroy() {
+    this.unsubscribe$.next();
+    this.unsubscribe$.complete();
   }
 
   initForm(){
@@ -45,13 +50,12 @@ export class GlobalChatComponent implements OnInit {
   }
 
   getAllMessages(){
-    this.chatService.chatWebsocket().subscribe(data => {
+    this.websocket._gettingData$.subscribe(data => {
       if(data.type === 10){
+      console.log(data.body)
       this.messages.push(data.body)
-      }
-      
+      } 
     })
-    console.log(this.messages)
   }
 
   sendMessage(){

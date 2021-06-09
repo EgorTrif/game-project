@@ -7,7 +7,7 @@ import {MatMenu} from '@angular/material/menu';
 import {MatIcon} from '@angular/material/icon';
 import { MatDialog } from '@angular/material/dialog';
 import { BuyStockComponent } from './buy-stock/buy-stock.component';
-import { takeUntil } from 'rxjs/operators';
+import { skip, takeUntil } from 'rxjs/operators';
 import { UserInfoComponent } from '../user-info/user-info.component';
 
 
@@ -27,14 +27,12 @@ export class CompaniesListComponent implements OnInit, OnDestroy {
   public icon: MatIcon,
   public dialog: MatDialog) {
     this.websocket.isUuid()
-    this.websocket.isList()
    }
 
   private unsubscribe$ = new Subject();
   uuid$: Observable<String> = this.websocket.isUuid()
   uuid: String
   refreshCompanies: any
-  companies$: Observable<CompaniesList[]> = this.websocket.isList()
   companies: CompaniesList[]
 
   ngOnInit(): void {
@@ -70,9 +68,9 @@ export class CompaniesListComponent implements OnInit, OnDestroy {
         }
         this.websocket.sendMessage(reqSocket);
         
-        this.companies$.subscribe(data => {
-          if(data.length != 0){
-            this.companies = data
+        this.websocket._gettingData$.subscribe(data => {
+          if(data.type === 4){
+            this.companies = data.body.list
           }
         })
       }

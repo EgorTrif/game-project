@@ -12,12 +12,10 @@ export class NewsComponent implements OnInit, OnDestroy {
 
   constructor(private websocket: WebsocketService) { 
     this.websocket.isUuid()
-    this.websocket.isNews()
   }
   
   uuid$: Observable<String> = this.websocket.isUuid()
   uuid: String
-  allNews$: Observable<NewsData[]> = this.websocket.isNews()
   allNews: NewsData[]
   refreshNews: any
 
@@ -25,7 +23,7 @@ export class NewsComponent implements OnInit, OnDestroy {
     this.getAllNews()
     this.refreshNews  = setInterval(() => {
       this.getAllNews();
-    }, 5000);
+    }, 3000);
   }
 
   ngOnDestroy(): void {
@@ -47,13 +45,12 @@ export class NewsComponent implements OnInit, OnDestroy {
         }
         this.websocket.sendMessage(reqSocket)
 
-        this.allNews$.subscribe(data => {
-          if(data != undefined){
-            this.allNews = data
+        this.websocket._gettingData$.subscribe(data => {
+          if (data.type === 7){
+            this.allNews = data.body.news
           }
         })
       }
     })
   }
-
 }

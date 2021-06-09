@@ -7,7 +7,7 @@
                         <li class="list-group-item" *ngFor="let chatMessage of messages">
                             <strong>{{chatMessage.player_name}}: </strong>
                             <span>{{chatMessage.text}}</span>
-                            <p style="font-size: small; color: grey;">{{chatMessage.server_time * 60 | date:'H:mm:ss':'UTC'}}
+                            <p style="font-size: small; color: grey;">{{chatMessage.server_time | date:'H:mm:ss':'UTC'}}
                         </li>
                     </ul>
                 </div>

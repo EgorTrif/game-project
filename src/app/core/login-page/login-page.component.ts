@@ -4,8 +4,8 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { WebsocketService } from 'src/app/shared/services/websocket.service';
 import { LoginData } from 'src/app/models/SendingData.model';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { BehaviorSubject, Observable, Subject } from 'rxjs';
-import { skip, skipWhile } from 'rxjs/operators';
+import { Observable, Subject } from 'rxjs';
+import { skip} from 'rxjs/operators';
 
 
 @Component({
@@ -70,9 +70,12 @@ export class LoginPageComponent implements OnInit, OnDestroy {
         type: 1,
       }
       this.websocket.sendMessage(sendData)
-     
-      this.isLoggedIn$.pipe(skip(1)).subscribe(data => {
-        if(data === true){
+
+      this.websocket._gettingData$.pipe(skip(1)).subscribe(data => {
+        if(data.type === 1){
+          if(data.body.result === true){
+          this.websocket.setIsAuthenticated(true)
+          this.websocket.idSaver(data.body.uuid)
           this.router.navigateByUrl('/home')
           this._snackBar.open('You have successfully loged in!', 'x', {
             duration: 3000,
@@ -80,17 +83,17 @@ export class LoginPageComponent implements OnInit, OnDestroy {
             verticalPosition: "top",
             panelClass: ['green-snackbar']
           })
-        }
-        else if(data === false) {
-          this._snackBar.open('Wrong login or password. Please, try again!', 'x', {
-            duration: 5000,
-            horizontalPosition: "center",
-            verticalPosition: "top",
-            panelClass: ['red-snackbar']
-          })
+          }
+          else if(data.body.result === false){
+            this._snackBar.open('Wrong login or password. Please, try again!', 'x', {
+                      duration: 5000,
+                      horizontalPosition: "center",
+                      verticalPosition: "top",
+                      panelClass: ['red-snackbar']
+                    })
+          }
         }
       })
-    }
 }
 }
-
+}

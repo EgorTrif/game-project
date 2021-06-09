@@ -5,7 +5,7 @@
                 <h4 matLine>{{news.theme}} </h4>
                 <p matLine>
                 {{ news.source }}
-                <p matLine style="font-size: small; color: grey;"> {{ news.server_time * 60 | date:'H:mm:ss':'UTC' }}
+                <p matLine style="font-size: small; color: grey;"> {{ news.server_time | date:'H:mm:ss':'UTC' }}
                 </mat-list-item>
               </mat-list>
 </div>

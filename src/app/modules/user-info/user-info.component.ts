@@ -20,12 +20,10 @@ export class UserInfoComponent implements OnInit, OnDestroy {
     public list: MatList,
     public dialog: MatDialog) {
       this.websocket.isUuid()
-      this.websocket.isUserInfo()
      }
   
   uuid$: Observable<String> = this.websocket.isUuid()
   uuid: String
-  userInfo$: Observable<any> = this.websocket.isUserInfo()
   userinfo: ClientData;
   refreshInfo: any
   private unsubscribe$ = new Subject();
@@ -35,6 +33,8 @@ export class UserInfoComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
+    this.unsubscribe$.next()
+    this.unsubscribe$.complete()
   }
 
   getUserData(){
@@ -48,9 +48,9 @@ export class UserInfoComponent implements OnInit, OnDestroy {
         }
         this.websocket.sendMessage(reqSocket);
 
-        this.userInfo$.subscribe(data => {
-          if(data != ""){
-            this.userinfo = data
+        this.websocket._gettingData$.subscribe( data => {
+          if(data.type === 6){
+            this.userinfo = data.body
           }
         })
       }

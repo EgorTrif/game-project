@@ -30,7 +30,7 @@ export class HeaderComponent implements OnInit {
     this.websocket.closeWebSocket()
     this.websocket.setIsAuthenticated(false)
     this.websocket.isRouteAuthenticated()
-    this.websocket.typeChanger("")
+    this.websocket.idSaver("")
     this.websocket.openWebSocket()
   }
 
