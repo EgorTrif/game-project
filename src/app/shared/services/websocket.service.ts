@@ -54,7 +54,6 @@ export class WebsocketService {
     
     this.webSocket.onmessage = (event) => {
       this.setIsData(JSON.parse(event.data))
-      console.log("Subject",this._gettingData$)
       console.log("data", JSON.parse(event.data))
       this._gettingData$.subscribe(data => { 
         if(data.type === 3){

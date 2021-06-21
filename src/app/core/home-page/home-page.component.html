@@ -1,24 +1,21 @@
 <div class="d-flex bd-highlight">
 <div class="p-2 bd-highlight list">
-<button mat-raised-button color="primary">Open stock market</button>
+    <div class="buttons">
+<button mat-raised-button color="accent">Open stock market</button>
 <button mat-raised-button color="accent">Stock exchange</button>
-<button mat-raised-button color="warn">Investors</button> 
+<button mat-raised-button color="accent">Investors</button>
+<button mat-raised-button color="accent">News</button>
+<button mat-raised-button color="accent">FAQ</button>
+    </div>
     <div class="border-one">
-    <app-companies-list></app-companies-list>
+    
     </div>
 </div>
 <div class="p-2 flex-shrink-1 bd-highlight user-info">
-<button mat-raised-button color="accent"
-(click)="openUserInfo()">Profile</button>
-<button mat-raised-button color="warn"
-(click)="openNews()">News</button>
-<button mat-raised-button color="primary"
-(click)="openGlobalChat()">Global chat</button>
+    <h2>Global chat</h2>
     <div class="border-two">
-    <app-user-info *ngIf="userinfo"></app-user-info>
-    <app-news *ngIf="newsOn"></app-news>
-    <app-global-chat *ngIf="chatOn"></app-global-chat>
+        <app-global-chat></app-global-chat>
     </div>
 </div>
 </div>
-<router-outlet></router-outlet>
+

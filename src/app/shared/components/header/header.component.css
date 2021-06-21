@@ -1,6 +1,63 @@
 .navbar {
     justify-content: space-between;
 }
+
 span {
     padding-right: 1rem;
+}
+
+.shortInfo{
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 36px;
+}
+
+.search {
+    margin-left: 15px;
+    font-size: medium;
+  }
+  
+.mat-icon {
+      margin: 8px;
+  }
+
+.searchInput{
+      color: white;
+      width: 250px;
+      height: 25px;
+  }
+
+.ticker-wrapper{
+    position:relative;
+    max-width: 650px;
+    margin: auto;
+}
+
+.news-update{
+    overflow: hidden;
+    position:relative;
+    color:#fff;
+    display: flex;
+    align-items: center;
+    box-sizing: border-box
+    }
+
+.news-update ol{
+    margin: 0;
+    transform: translateX(100%);
+    animation: moving 40s linear infinite;
+    list-style: none;
+}
+
+        @keyframes moving{
+            0%{
+            transform: translateX(100%);
+            }
+            100%{
+            transform: translateX(-100%);
+            }
+            }
+
+li {
+    display: inline-block;
 }

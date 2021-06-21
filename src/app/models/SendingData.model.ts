@@ -57,3 +57,15 @@ export interface ChatMessage {
     server_time: number,
     text: string
 }
+
+export interface ShortInfo {
+    login: string;
+    money: {
+        money: number,
+        stokes: number
+    };
+    news: {
+        theme: string,
+        source: string
+    }
+}
