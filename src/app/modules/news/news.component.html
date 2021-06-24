@@ -1,4 +1,4 @@
-<div class="news">
+<div *ngIf="allNews" class="news">
     <h2>All news:</h2>
         <mat-list>
             <mat-list-item *ngFor="let news of allNews.reverse()">

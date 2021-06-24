@@ -1,4 +1,4 @@
-<div class="user-info"> 
+<div *ngIf="userinfo" class="user-info"> 
 <h2>Profile</h2>
 <h2>User: {{ userinfo.login }} </h2>
 <p>Money: {{userinfo.player_data.money | number:'1.2-2'}}</p>

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
+import { HomePageComponent } from 'src/app/core/home-page/home-page.component';
 import { ShortInfo } from 'src/app/models/SendingData.model';
 import { WebsocketService } from '../../services/websocket.service';
 
@@ -17,6 +18,7 @@ export class HeaderComponent implements OnInit {
   info: ShortInfo
   searchOff: boolean = false
   currentDate = new Date()
+  showUserInfo$ = new BehaviorSubject<boolean>(true);
 
   constructor(private router: Router,
     private websocket: WebsocketService) {
@@ -70,5 +72,13 @@ export class HeaderComponent implements OnInit {
 
   registr(){
     this.router.navigateByUrl('/registr')
+  }
+
+  public isShowUserInfo(): Observable<any> {
+    return this.showUserInfo$
+  }
+
+   openUserInfo(value:boolean){
+    this.showUserInfo$.next(value)
   }
 }

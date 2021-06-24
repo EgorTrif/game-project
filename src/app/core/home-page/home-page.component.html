@@ -1,14 +1,16 @@
 <div class="d-flex bd-highlight">
 <div class="p-2 bd-highlight list">
     <div class="buttons">
-<button mat-raised-button color="accent">Open stock market</button>
+<button mat-raised-button color="accent" (click)="openList()">Open stock market</button>
 <button mat-raised-button color="accent">Stock exchange</button>
 <button mat-raised-button color="accent">Investors</button>
-<button mat-raised-button color="accent">News</button>
+<button mat-raised-button color="accent" (click)="openNews()">News</button>
 <button mat-raised-button color="accent">FAQ</button>
     </div>
     <div class="border-one">
-    
+    <app-companies-list [hidden]="showList"></app-companies-list>
+    <app-news [hidden]="showNews"></app-news>
+    <app-user-info [hidden]="showUserInfo$"></app-user-info>
     </div>
 </div>
 <div class="p-2 flex-shrink-1 bd-highlight user-info">

@@ -59,7 +59,7 @@ import { GlobalChatComponent } from './modules/global-chat/global-chat.component
     MatDialogModule,
     CompaniesListModule
   ],
-  providers: [ WebsocketService, LoginPageComponent, HeaderComponent],
+  providers: [ WebsocketService, LoginPageComponent, HeaderComponent, HomePageComponent],
   bootstrap: [AppComponent],
 })
 export class AppModule { }
