@@ -11,17 +11,31 @@ export class HomePageComponent implements OnInit {
 
   showList = false
   showNews = true
-  showUserInfo$:  Observable<boolean> = this.header.isShowUserInfo()
+  showInfo = true
+  readonly _showUserInfo$:Observable<boolean> = this.header.isShowUserInfo()
 
-  constructor(private header: HeaderComponent) {
+  constructor(public header: HeaderComponent) {
     this.header.isShowUserInfo()
    }
+
+   ngOnInit(): void {
+     this._showUserInfo$.subscribe(data =>{
+       if(data === false) {
+        this.showList = true
+        this.showNews = true
+        this.showInfo = false
+       }
+       else if(data === true){
+         this.showInfo = true
+       }
+     })
+  }
 
   openList(){
     if(this.showList===true){
       this.showList = false
       this.showNews = true
-      this.header.openUserInfo(true)
+      this.header.setIsUserInfo(true)
     }
   }
 
@@ -29,22 +43,11 @@ export class HomePageComponent implements OnInit {
     if(this.showNews===true){
       this.showList = true
       this.showNews = false
-      this.header.openUserInfo(true)
+      this.header.setIsUserInfo(true)
     }
   }
 
-  openUserInfo(){
-    this.showUserInfo$.subscribe(data => {
-      if(data===true){
-          this.showList = true
-          this.showNews = true
-          this.header.openUserInfo(false)
-      }
-    })
-    
-  }
-
-  ngOnInit(): void {
+  openUserinfo(){
   }
 
 }

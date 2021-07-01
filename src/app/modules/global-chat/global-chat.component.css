@@ -4,7 +4,7 @@
 
 div.chat-content {
     border-radius: .25rem;
-    height: 400px;
+    height: 450px;
     margin-bottom: 2rem;
 }
 
@@ -13,7 +13,14 @@ div.chat-content {
 }
 
 ul {
-    height: 400px;
+    height: 445px;
     overflow: auto;
     box-sizing: border-box
   }
+.col-3{ 
+  text-align: center;
+  padding: 8px;
+ }
+.col-3 span{
+    font-size: xx-large;
+}

@@ -1,10 +1,9 @@
     <main class="g-chat">
-        <h2>Global chat</h2>
         <div class="container">
             <div class="chat-content">
                 <div class="card">
                     <ul class="list-group list-group-flush">
-                        <li class="list-group-item" *ngFor="let chatMessage of messages">
+                        <li class="list-group-item" *ngFor="let chatMessage of websocket.messages">
                             <strong>{{chatMessage.player_name}}: </strong>
                             <span>{{chatMessage.text}}</span>
                             <p style="font-size: small; color: grey;">{{chatMessage.server_time | date:'H:mm:ss':'UTC'}}
@@ -15,7 +14,7 @@
             <form [formGroup]="formGroup" (ngSubmit)="sendMessage()" >
                 <div class="chat-send row">
                     <div class="col-3">
-                        <input formControlName="player_name" type="text" class="form-control">
+                        <span *ngIf="login">{{ login }}</span>
                     </div>
                     <div class="col-7">
                         <input formControlName="text" type="text" class="form-control">

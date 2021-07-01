@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable} from 'rxjs';
+import { ChatMessage } from 'src/app/models/SendingData.model';
 
 
 @Injectable({
@@ -11,6 +12,7 @@ export class WebsocketService {
   webSocket: WebSocket;
   public _gettingData$ = new BehaviorSubject<any>(undefined)
   public _uuid$ = new BehaviorSubject<string>("")
+  messages: ChatMessage[] = []
 
   constructor() { 
     this.isRouteAuthenticated()
@@ -55,6 +57,9 @@ export class WebsocketService {
     this.webSocket.onmessage = (event) => {
       this.setIsData(JSON.parse(event.data))
       console.log("data", JSON.parse(event.data))
+      if (JSON.parse(event.data).type === 10){
+        this.messages.push(JSON.parse(event.data).body)
+      }
       this._gettingData$.subscribe(data => { 
         if(data.type === 3){
           this.keepAlive()

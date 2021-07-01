@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { HomePageComponent } from 'src/app/core/home-page/home-page.component';
 import { ShortInfo } from 'src/app/models/SendingData.model';
 import { WebsocketService } from '../../services/websocket.service';
 
@@ -18,15 +17,17 @@ export class HeaderComponent implements OnInit {
   info: ShortInfo
   searchOff: boolean = false
   currentDate = new Date()
-  showUserInfo$ = new BehaviorSubject<boolean>(true);
+  public _showUserInfo$ = new BehaviorSubject<boolean>(true);
 
   constructor(private router: Router,
     private websocket: WebsocketService) {
-      this.websocket.isRouteAuthenticated()
+      this.websocket.isRouteAuthenticated(),
+      this.isShowUserInfo()
      }
 
   ngOnInit(): void {
     this.shortInfo()
+    console.log("ALO",this._showUserInfo$)
   }
   
   searchOn(){
@@ -75,10 +76,13 @@ export class HeaderComponent implements OnInit {
   }
 
   public isShowUserInfo(): Observable<any> {
-    return this.showUserInfo$
+    return this._showUserInfo$
+  }
+  public setIsUserInfo(value:boolean){
+    this._showUserInfo$.next(value)
   }
 
-   openUserInfo(value:boolean){
-    this.showUserInfo$.next(value)
+   openUserInfo(){
+   this.setIsUserInfo(false)
   }
 }
