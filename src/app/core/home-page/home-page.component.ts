@@ -19,23 +19,13 @@ export class HomePageComponent implements OnInit {
    }
 
    ngOnInit(): void {
-     this._showUserInfo$.subscribe(data =>{
-       if(data === false) {
-        this.showList = true
-        this.showNews = true
-        this.showInfo = false
-       }
-       else if(data === true){
-         this.showInfo = true
-       }
-     })
   }
 
   openList(){
     if(this.showList===true){
       this.showList = false
       this.showNews = true
-      this.header.setIsUserInfo(true)
+      this.showInfo = true
     }
   }
 
@@ -43,11 +33,16 @@ export class HomePageComponent implements OnInit {
     if(this.showNews===true){
       this.showList = true
       this.showNews = false
-      this.header.setIsUserInfo(true)
+      this.showInfo = true
     }
   }
 
   openUserinfo(){
+    if(this.showInfo===true){
+      this.showList = true
+      this.showNews = true
+      this.showInfo = false
+    }
   }
 
 }

@@ -19,9 +19,9 @@
         <mat-icon aria-hidden="false">account_circle</mat-icon>
         <span>{{ info.login }}</span>
         <mat-icon aria-hidden="false">local_atm</mat-icon>
-        <span>{{ info.money.money }}</span>
+        <span>{{ info.money.money | number:'1.2-2'}}</span>
         <mat-icon aria-hidden="false">home_repair_service</mat-icon>
-        <span> {{info.money.stocks}}</span>
+        <span> {{info.money.stocks | number:'1.2-2'}}</span>
     </button>
     </div>
     <div>

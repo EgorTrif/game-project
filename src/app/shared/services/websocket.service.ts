@@ -60,11 +60,9 @@ export class WebsocketService {
       if (JSON.parse(event.data).type === 10){
         this.messages.push(JSON.parse(event.data).body)
       }
-      this._gettingData$.subscribe(data => { 
-        if(data.type === 3){
-          this.keepAlive()
-        }
-      })
+      else if (JSON.parse(event.data).type === 3){
+        this.keepAlive()
+      }
     };
   }
 

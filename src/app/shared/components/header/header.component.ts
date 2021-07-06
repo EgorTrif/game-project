@@ -27,7 +27,6 @@ export class HeaderComponent implements OnInit {
 
   ngOnInit(): void {
     this.shortInfo()
-    console.log("ALO",this._showUserInfo$)
   }
   
   searchOn(){
@@ -42,6 +41,7 @@ export class HeaderComponent implements OnInit {
   login(){
     this.router.navigateByUrl('/login')
   }
+  
   shortInfo(){
     this.uuid$.subscribe(data => {
       this.uuid = data

@@ -4,6 +4,8 @@ import { MatDialog, MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dial
 import { Observable, Subject } from 'rxjs';
 import { CompaniesList } from 'src/app/models/SendingData.model';
 import { WebsocketService } from 'src/app/shared/services/websocket.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { HeaderComponent } from 'src/app/shared/components/header/header.component';
 
 
 @Component({
@@ -16,7 +18,9 @@ export class SellStockComponent implements OnInit, OnDestroy {
   constructor(public dialogRef: MatDialogRef<SellStockComponent>,
     @Inject(MAT_DIALOG_DATA) public data:{ company: CompaniesList},
     public dialog: MatDialog,
-    private websocket: WebsocketService) {
+    private websocket: WebsocketService,
+    private _snackBar: MatSnackBar,
+    private header: HeaderComponent) {
       this.websocket.isUuid()
      }
   
@@ -51,7 +55,18 @@ export class SellStockComponent implements OnInit, OnDestroy {
             type: 9,
             uuid: this.uuid
           }
-          this.websocket.sendMessage(reqSocket);
+          if (this.amountStoks.value.AmountForSell < 0){
+            this._snackBar.open('You cannnot sell negative amount of stocks', 'x', {
+              duration: 5000,
+              horizontalPosition: "center",
+              verticalPosition: "top",
+              panelClass: ['red-snackbar']
+            })
+          }
+          else {
+            this.websocket.sendMessage(reqSocket)
+            this.header.shortInfo()
+          }
       }});
      }
 }
