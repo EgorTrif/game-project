@@ -16,6 +16,7 @@ export class HeaderComponent implements OnInit {
   uuid: String
   info: ShortInfo
   searchOff: boolean = false
+  searchCompanies = ''
   currentDate = new Date()
   public _showUserInfo$ = new BehaviorSubject<boolean>(true);
 
@@ -61,6 +62,8 @@ export class HeaderComponent implements OnInit {
       }})
     }})
   }
+
+
 
   logout(): void {
     this.router.navigateByUrl('/login')

@@ -1,19 +1,57 @@
-<div *ngIf="userinfo" class="user-info"> 
-<h2>Profile</h2>
+<div *ngIf="userinfo" class="user-info">
 <h2>User: {{ userinfo.login }} </h2>
 <p>Money: {{userinfo.player_data.money | number:'1.2-2'}}</p>
 <p>Amount of stocks: {{userinfo.player_data.stocks.amount}}</p>
+<div>
+<button mat-raised-button color="primary" class="silver" (click)="openSilver()">List of silver stocks</button>
+<button mat-raised-button color="primary" class="gold" (click)="openGold()">List of golden stocks</button>
+<button mat-raised-button color="primary" (click)="openCompanies()">Companies</button>
+</div>
+<div [hidden]="silver" *ngIf="userinfo.player_data.stocks.list.length; else empty">
 <mat-list>
     <mat-list-item *ngFor="let company of userinfo.player_data.stocks.list">
-        <h4 matLine>Name of company: {{company.name}} </h4>
-        <span matLine>Silver stocks:</span>
+      <h4 matLine>Name of company: {{company.name}} </h4>  
         <p matLine>
           <span> Amount: {{company.silver.amount}} </span>
         <p matLine>
             <span> Cost of all stocks: {{company.silver.cost | number:'1.2-2'}} </span>
-            <button style="float: right;" (click)="SellStock(company)" mat-raised-button>
+        <p matLine>
+            <button (click)="BuyStock(company)" mat-raised-button>
+              Buy
+            </button>
+            <button (click)="sellStock(company)" mat-raised-button>
               Sell
             </button>
         </mat-list-item>
       </mat-list>
+    </div>
+  <div [hidden]="gold">
+    <mat-list>
+      <mat-list-item *ngFor="let company of userinfo.player_data.stocks.list">
+        <div *ngIf="company.gold.amount > 0">
+        <h4 matLine>Name of company: {{company.name}} </h4>
+          <p matLine>
+            <span> Amount: {{company.gold.amount}} </span>
+          <p matLine>
+            <span> Cost of all stocks: {{company.gold.owner}} </span>
+          <p matLine>  
+            <button mat-raised-button>
+                Buy
+              </button>
+              <button mat-raised-button>
+                Sell
+              </button>
+            </div>
+          </mat-list-item>
+        </mat-list>
+  </div>
+  <div [hidden]="companies">
+    <mat-list>
+      <mat-list-item *ngFor="let company of userinfo.player_data.companies">
+      </mat-list-item>
+      </mat-list>
+  </div>
+  <ng-template #empty>
+    <p class="text-center">This list is empty</p>
+</ng-template>
 </div>

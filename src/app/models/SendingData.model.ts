@@ -38,11 +38,18 @@ export interface ClientData {
 				[
 					uuid : String,
                     name: String,
-					amount : Number,
-                    cost : Number,
-					value : Number
+                    silver: {
+                        amount: Number,
+                        cost: Number
+                    },
+                    gold: {
+                        amount: Number,
+                        cost: Number,
+                        owner: boolean
+                    },
                 ]
-			}
+			},
+            companies: []
 		}
 }
 

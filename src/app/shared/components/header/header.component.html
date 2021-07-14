@@ -1,7 +1,7 @@
 <mat-toolbar *ngIf="isLoggedIn$ | async" class="navbar">
     <a routerLink = "/home">Game</a>
     <form class="search">
-          <input *ngIf="searchOff" class="searchInput"> 
+          <input type="text" placeholder="Search..." [(ngModel)]="searchCompanies" *ngIf="searchOff" class="searchInput"> 
         <button mat-button (click)="searchOn()">
               <mat-icon aria-hidden="false">search</mat-icon>
         </button>
@@ -15,14 +15,12 @@
     </div>
     <div class="shortInfo" *ngIf="info">
         <span> {{currentDate | date:'dd.MM.yyyy'}}</span>
-    <button mat-button (click)="openUserInfo()">
         <mat-icon aria-hidden="false">account_circle</mat-icon>
         <span>{{ info.login }}</span>
         <mat-icon aria-hidden="false">local_atm</mat-icon>
         <span>{{ info.money.money | number:'1.2-2'}}</span>
         <mat-icon aria-hidden="false">home_repair_service</mat-icon>
         <span> {{info.money.stocks | number:'1.2-2'}}</span>
-    </button>
     </div>
     <div>
         <button (click) = "logout()" mat-button>

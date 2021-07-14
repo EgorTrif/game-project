@@ -7,7 +7,6 @@ import { MatMenu, MatMenuModule } from '@angular/material/menu';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 
-
 import { CompaniesListRoutingModule } from './companies-list-routing.module';
 import { CompaniesListComponent } from './companies-list.component';
 import { BuyStockComponent } from './buy-stock/buy-stock.component';
@@ -15,8 +14,7 @@ import { UserInfoComponent } from '../user-info/user-info.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NewsComponent } from '../news/news.component';
 import { SellStockComponent } from '../user-info/sell-stock/sell-stock.component';
-
-
+import { MatButtonModule } from '@angular/material/button';
 
 @NgModule({
   declarations: [CompaniesListComponent, BuyStockComponent, UserInfoComponent, NewsComponent, SellStockComponent],
@@ -29,6 +27,7 @@ import { SellStockComponent } from '../user-info/sell-stock/sell-stock.component
     MatDialogModule,
     MatFormFieldModule,
     MatInputModule,
+    MatButtonModule,
     FormsModule,
     ReactiveFormsModule,
   ],
@@ -43,6 +42,6 @@ import { SellStockComponent } from '../user-info/sell-stock/sell-stock.component
     provide: MAT_DIALOG_DATA,
     useValue: {}
   }, 
-MatList, MatMenu, MatIcon]
+MatList, MatMenu, MatIcon, MatButtonModule]
 })
 export class CompaniesListModule { }
