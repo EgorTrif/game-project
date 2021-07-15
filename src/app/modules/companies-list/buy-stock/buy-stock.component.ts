@@ -15,7 +15,7 @@ import { HeaderComponent } from 'src/app/shared/components/header/header.compone
 export class BuyStockComponent implements OnInit {
 
   constructor(public dialogRef: MatDialogRef<BuyStockComponent>,
-  @Inject(MAT_DIALOG_DATA) public data:{ company: CompaniesList},
+  @Inject(MAT_DIALOG_DATA) public data:{ company: any},
   public dialog: MatDialog,
   private websocket: WebsocketService,
   private _snackBar: MatSnackBar,
@@ -45,8 +45,10 @@ export class BuyStockComponent implements OnInit {
     this.uuid$.subscribe(data => {
       this.uuid = data
       if(this.uuid != "") {
-        const reqSocket = {
-          type: 5,
+        let reqSocket: any
+        if(this.data.company.cost){
+      reqSocket = {
+      type: 5,
       body: {
         uuid: this.data.company.uuid,
         amount: Number(this.amountStoks.value.AmountForBuy),
@@ -54,6 +56,17 @@ export class BuyStockComponent implements OnInit {
       },
       uuid: this.uuid
         }
+      } else if (this.data.company.silver.cost) {
+        reqSocket = {
+          type: 5,
+          body: {
+            uuid: this.data.company.uuid,
+            amount: Number(this.amountStoks.value.AmountForBuy),
+            cost: Number(this.data.company.silver.cost)
+          },
+          uuid: this.uuid
+      }
+    }
       if (this.amountStoks.value.AmountForBuy < 0){
         this._snackBar.open('You cannnot buy negative amount of stocks', 'x', {
           duration: 5000,
@@ -63,6 +76,7 @@ export class BuyStockComponent implements OnInit {
         })
       }
       else {
+        console.log("Soket",reqSocket)
         this.websocket.sendMessage(reqSocket)
         this.header.shortInfo()
       }

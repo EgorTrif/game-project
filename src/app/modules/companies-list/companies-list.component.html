@@ -4,6 +4,8 @@
     <mat-list-item *ngFor="let company of companies">
     <h4 matLine> {{company.name}} </h4>
     <p matLine>
+      <span style="font-size: smaller;"> {{ company.b_type}} </span>
+    <p matLine>
       <span> {{ company.cost | number:'1.2-2'}} </span>
       <button style="float: right" mat-raised-button (click)="BuyStock(company)">
         Buy

@@ -69,11 +69,11 @@ export class UserInfoComponent implements OnInit, OnDestroy {
     });
   }
 
-  buyStock(company: CompaniesList) {
+  buyStock(company: ClientData) {
     const dialogRef = this.dialog.open(BuyStockComponent, { width: '500px', data: { company } });
     dialogRef.afterClosed().pipe(takeUntil(this.unsubscribe$)).subscribe(result => {
       console.log("Result",result)
-      this.getUserData()
+      //this.getUserData()
     });
   }
 

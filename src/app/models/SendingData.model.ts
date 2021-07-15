@@ -14,7 +14,8 @@ export interface KeepAlive {
 export interface CompaniesList {
         uuid: String,
         name: String,
-        cost: number
+        cost: number,
+        b_type: String
     }
 
 export interface BuyStock {
